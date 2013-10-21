@@ -7,6 +7,7 @@ $LOAD_PATH.unshift __LIB_DIR__ unless $LOAD_PATH.include?(__LIB_DIR__)
 # they all depend on fog/core for shared functionality.
 require 'fog/atmos'
 require 'fog/aws'
+require 'fog/bigv'
 require 'fog/bluebox'
 require 'fog/brightbox'
 require 'fog/cloudstack'

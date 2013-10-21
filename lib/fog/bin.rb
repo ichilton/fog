@@ -58,6 +58,7 @@ end
 
 require 'fog/bin/atmos'
 require 'fog/bin/aws'
+require 'fog/bin/bigv'
 require 'fog/bin/bluebox'
 require 'fog/bin/brightbox'
 require 'fog/bin/cloudstack'

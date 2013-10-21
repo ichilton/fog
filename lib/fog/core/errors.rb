@@ -38,6 +38,11 @@ An alternate file may be used by placing its path in the FOG_RC environment vari
 :#{Fog.credential}:
   :aws_access_key_id:
   :aws_secret_access_key:
+  :bigv_account:
+  :bigv_username:
+  :bigv_password:
+  :bigv_yubikey:
+  :bigv_api_url:
   :bluebox_api_key:
   :bluebox_customer_id:
   :brightbox_client_id:
