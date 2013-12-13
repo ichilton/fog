@@ -32,18 +32,25 @@ module Fog
         attribute :hardware_profile_locked
 
 
-        # Control:
-        def start
-          requires :id
-
+        # Turn on:
+        def start   
+          requires :id, :group_id
+          service.update_virtual_machine(id, group_id, { :autoreboot_on => true, :power_on => true })
+          true
         end
 
-        def stop
-          requires :id
+        # Turn off:
+        def stop    
+          requires :id, :group_id
+          service.update_virtual_machine( id, group_id, { :autoreboot_on => false, :power_on => false })
+          true
         end
 
-        def reboot
-          requires :id
+        # Hard reset:
+        def reboot  
+          requires :id, :group_id
+          service.update_virtual_machine(id, group_id, { :autoreboot_on => true, :power_on => false })
+          true
         end
 
 
