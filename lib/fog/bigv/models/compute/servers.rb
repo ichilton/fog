@@ -17,6 +17,8 @@ module Fog
 
         def all(filters = {})
           load(all_virtual_machines)
+
+          # TODO - implement filters!
         end
 
 
