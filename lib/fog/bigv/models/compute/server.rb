@@ -103,6 +103,7 @@ module Fog
         def destroy
           requires :id, :group_id
           service.delete_virtual_machine(id, group_id)
+          true
         end
 
 
