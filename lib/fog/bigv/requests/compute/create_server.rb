@@ -10,11 +10,10 @@ module Fog
       # (see the create_virtual_machine request to just create a bare virtual machine)
 
       # params:
-      #   name - the name of the virtual machine (must be unique within the account)
-      #   root_password - the root password to be used for the new machine
-      #   group_id - optional and defaults to the 'default' group.
-
       #   options - a hash containing:
+      #     - group_id (defaults to the 'default' group)
+      #     - name
+      #     - root_password
       #     - cores
       #     - memory - in megabytes
       #     - cdrom_url
@@ -39,10 +38,11 @@ module Fog
 
       class Real
 
-        def create_server(name, root_password, group_id='default', options = {})
+        def create_server(options = {})
+          group_id = options[:group_id] || 'default'
 
           virtual_machine_opts = {
-            :name              =>  name,
+            :name              =>  options[:name],
             :cores             =>  options[:cores]             ||  1,
             :memory            =>  options[:memory]            ||  1024,
             :cdrom_url         =>  options[:cdrom_url]         ||  nil,
@@ -66,7 +66,7 @@ module Fog
 
           reimage_opts = {
             :distribution   =>  options[:distribution]  ||  'precise',
-            :root_password  =>  root_password
+            :root_password  =>  options[:root_password]
           }
 
 

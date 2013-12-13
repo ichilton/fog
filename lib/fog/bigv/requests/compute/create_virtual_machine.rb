@@ -8,9 +8,9 @@ module Fog
       # use the create_server request to include a disc and an operating system.
 
       # params:
-      #   name - the name of the virtual machine (must be unique within the account)
-      #   group_id - defaults to the 'default' group.
       #   options - a hash containing:
+      #     - group_id (defaults to the 'default' group)
+      #     - name
       #     - cores
       #     - memory (in megabytes)
       #     - cdrom_url
@@ -27,9 +27,11 @@ module Fog
 
       class Real
 
-        def create_virtual_machine(name, group_id='default', options = {})
+        def create_virtual_machine(options = {})
+          group_id = options[:group_id] || 'default'
+
           post_data = {
-            :name              =>  name,
+            :name              =>  options[:name],
             :cores             =>  options[:cores]             ||  1,
             :memory            =>  options[:memory]            ||  1024,
             :cdrom_url         =>  options[:cdrom_url]         ||  nil,
@@ -50,7 +52,7 @@ module Fog
 
       class Mock
 
-        def create_virtual_machine(name, group_id='default', options = {})
+        def create_virtual_machine(options = {})
           Fog::Mock.not_implemented
         end
 

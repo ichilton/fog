@@ -31,6 +31,17 @@ module Fog
         attribute :hardware_profile
         attribute :hardware_profile_locked
 
+        attr_accessor :root_password  # just used for creation
+
+
+        def initialize(options = {})
+          attributes[:group_id] =  options[:group_id] || 'default'
+          attributes[:cores]    =  options[:cores]    || 1
+          attributes[:memory]   =  options[:memory]   || 1024
+
+          super
+        end
+
 
         # Turn on:
         def start   
@@ -80,11 +91,13 @@ module Fog
 
         # CRUD:
         def save
+          if persisted?
+            response = _update_server
+          else
+            response = _create_server
+          end
 
-        end
-
-        def update
-
+          merge_attributes(response.body['virtual_machine'])
         end
 
         def destroy
@@ -94,6 +107,17 @@ module Fog
 
 
         private
+
+          def _create_server
+            requires :name, :root_password
+
+            options = attributes.merge( { :root_password => root_password } )
+            service.create_server(options)
+          end
+
+          def _update_server
+            # TODO
+          end
 
           def _primary_ip_addresses
             if attributes['network_interfaces'] && attributes['network_interfaces'].count > 0
