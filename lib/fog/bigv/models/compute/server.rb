@@ -129,13 +129,7 @@ module Fog
         private
 
           def _virtual_machine_params
-            virtual_machine = { }
-
-            VALID_ATTRIBUTES.each do |attr|
-              virtual_machine[attr] = attributes[attr] unless attributes[attr].nil?
-            end
-
-            virtual_machine
+            attributes.select { |a| VALID_ATTRIBUTES.include?(a) && !attributes[a].nil? }
           end
 
           def _initial_discs
