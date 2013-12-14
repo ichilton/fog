@@ -27,19 +27,7 @@ module Fog
 
       class Real
 
-        def create_virtual_machine(options = {})
-          group_id = options[:group_id] || 'default'
-
-          post_data = {
-            :name              =>  options[:name],
-            :cores             =>  options[:cores]             ||  1,
-            :memory            =>  options[:memory]            ||  1024,
-            :cdrom_url         =>  options[:cdrom_url]         ||  nil,
-            :autoreboot_on     =>  options[:auto_reboot]       ||  false,
-            :power_on          =>  options[:power_on]          ||  false,
-            :hardware_profile  =>  options[:hardware_profile]  ||  nil
-          }
-
+        def create_virtual_machine(group_id='default', options = {})
           bigv_api_request(
             :expects  => [202],
             :method   => 'POST',

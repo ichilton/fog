@@ -31,13 +31,34 @@ module Fog
         attribute :hardware_profile
         attribute :hardware_profile_locked
 
-        attr_accessor :root_password  # just used for creation
+        # Just used for creation:
+        attr_accessor :password
+        attr_accessor :distribution
+        attr_accessor :initial_discs
+
+        VALID_ATTRIBUTES = [
+                              :name,
+                              :cores,
+                              :memory,
+                              :cdrom_url,
+                              :autoreboot_on,
+                              :power_on,
+                              :hardware_profile
+                            ]
+
+        DEFAULT_DISC = { :label => 'vda', :storage_grade => 'sata', :size => 20480 }
+
+        DEFAULT_DISTRIBUTION = 'precise'
 
 
         def initialize(options = {})
           attributes[:group_id] =  options[:group_id] || 'default'
           attributes[:cores]    =  options[:cores]    || 1
           attributes[:memory]   =  options[:memory]   || 1024
+
+          # default to powered on, unless specifically set to false:
+          attributes[:autoreboot_on] = options[:autoreboot_on] == false ? false : true
+          attributes[:power_on] = options[:power_on] == false ? false : true
 
           super
         end
@@ -92,12 +113,10 @@ module Fog
         # CRUD:
         def save
           if persisted?
-            response = _update_server
+            _update_server
           else
-            response = _create_server
+            _create_server
           end
-
-          merge_attributes(response.body['virtual_machine'])
         end
 
         def destroy
@@ -109,15 +128,47 @@ module Fog
 
         private
 
-          def _create_server
-            requires :name, :root_password
+          def _virtual_machine_params
+            virtual_machine = { }
 
-            options = attributes.merge( { :root_password => root_password } )
-            service.create_server(options)
+            VALID_ATTRIBUTES.each do |attr|
+              virtual_machine[attr] = attributes[attr] unless attributes[attr].nil?
+            end
+
+            virtual_machine
+          end
+
+          def _initial_discs
+            if initial_discs.kind_of?(Array)
+              initial_discs
+            else
+              [ DEFAULT_DISC ]
+            end
+          end
+
+          def _new_server_params
+            {
+              :virtual_machine  => _virtual_machine_params,
+              :discs            => _initial_discs,
+              :reimage => {
+                :distribution   => distribution || DEFAULT_DISTRIBUTION,
+                :root_password  => password
+              }
+            }
+          end
+
+          def _create_server
+            requires :group_id, :name, :password
+
+            response = service.create_server(group_id, _new_server_params)
+            merge_attributes(response.body['virtual_machine'])
           end
 
           def _update_server
-            # TODO
+            requires :id, :group_id
+
+            response = service.update_virtual_machine(id, group_id, _virtual_machine_params)
+            merge_attributes(response.body)
           end
 
           def _primary_ip_addresses
