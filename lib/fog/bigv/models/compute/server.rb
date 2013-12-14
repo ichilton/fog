@@ -133,11 +133,7 @@ module Fog
           end
 
           def _initial_discs
-            if initial_discs.kind_of?(Array)
-              initial_discs
-            else
-              [ DEFAULT_DISC ]
-            end
+            initial_discs.kind_of?(Array) ? initial_discs : [ DEFAULT_DISC ]
           end
 
           def _new_server_params
