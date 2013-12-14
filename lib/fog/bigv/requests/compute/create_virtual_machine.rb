@@ -8,8 +8,9 @@ module Fog
       # use the create_server request to include a disc and an operating system.
 
       # params:
+      #   group_id (defaults to the 'default' group)
+      #
       #   options - a hash containing:
-      #     - group_id (defaults to the 'default' group)
       #     - name
       #     - cores
       #     - memory (in megabytes)
@@ -21,9 +22,6 @@ module Fog
       # Success returns a 202 response, but the machine is created in the background.
 
       # For more information, see: http://bigv-api-docs.ichilton.co.uk/api/virtual_machines/
-
-      # Currently, options can be empty and sane default will be used, but i'll
-      # probably move the default into the model to keep things DRY.
 
       class Real
 
