@@ -3,14 +3,22 @@
 This is a Fog compute provider for Bytemark BigV service.
 
 [http://www.bigv.io](http://www.bigv.io)
+
 [http://www.bytemark.co.uk](http://www.bytemark.co.uk)
 
+
 Developed/maintained on behalf of Bytemark by:
+
   Ian Chilton
+
   **Email:**   ian@ichilton.co.uk
+
   **Web:**     [http://www.ichilton.co.uk](http://www.ichilton.co.uk)
+
   **Github:**  [http://github.com/ichilton](http://github.com/ichilton)
+
   **Twitter:** @ichilton
+
 
 API Documentation: [http://bigv-api-docs.ichilton.co.uk](http://bigv-api-docs.ichilton.co.uk)
 
@@ -42,11 +50,9 @@ From there, you can either run:
 
     bin/fog
 
-or
+or:
 
-    require './lib/fog'
-
-in irb or a ruby file.
+    require './lib/fog'    # in irb or a ruby file.
 
 
 ### Bundler
@@ -102,7 +108,7 @@ You can also optionally specify :bigv_api_url, although this defaults to: https:
 
 If you use the fog binary (bin/fog), you can create a .fog file in your home directory which contains the following:
 
-```
+```ruby
 :default:
   :bigv_account:    your_account_here
   :bigv_username:   your_username_here
@@ -115,7 +121,7 @@ You can then just do the following instead of the Fog::Compute.new code above:
 
 Great for quick testing, as you can very quickly do:
 
-```
+```ruby
 $ bin/fog 
   Welcome to fog interactive!
   :default provides BigV, Openvz and Vmfusion
@@ -131,28 +137,28 @@ To maintain compatibility with other Fog providers, virtual machines in BigV ter
 
 ### How many?
 
-```
+```ruby
 ?> bigv.servers.count
 4
 ```
 
 ### Names?
 
-````
+````ruby
 >> bigv.servers.map(&:name)
 ["myserver1", "myserver2", "myserver3", "myserver4"]
 ````
 
 ### ID's and Names?
 
-```
+```ruby
 >> bigv.servers.map { |s| { s.id => s.name} }
 [{1=>"myserver1"}, {2=>"myserver2"}, {3=>"myserver3"}, {4=>"myserver4"}]
 ```
 
 ### Use like an Array
 
-```
+```ruby
 bigv.servers.first
 bigv.servers.last
 bigv.servers[0]
@@ -164,7 +170,7 @@ bigv.servers[0]
 
 ### Single server by ID:
 
-```
+```ruby
 >> server = bigv.servers.get(12610)
   <Fog::Compute::BigV::Server
     id=12610,
@@ -187,8 +193,25 @@ bigv.servers[0]
 
 #### Default Options (1 core, 1GB RAM, 20GB SATA Disc)
 
-    server = bigv.servers.create(:name => 'myserver-name',
-                                 :password => 'new_root_password')
+```ruby
+>>  server = bigv.servers.create(:name => 'myserver-name',
+?>                               :password => 'new_root_password')
+  <Fog::Compute::BigV::Server
+    id=12610,
+    group_id=1,
+    name="myserver-name",
+    hostname="myserver-name.default.myaccountname.uk0.bigv.io",
+    cores=1,
+    memory=1024,
+    autoreboot_on=true,
+    power_on=false,
+    management_address="213.123.123.123",
+    cdrom_url=nil,
+    head=nil,
+    hardware_profile="virtio2013",
+    hardware_profile_locked=false
+  >
+```
 
 #### Intialize first and create on save
 
@@ -207,7 +230,7 @@ bigv.servers[0]
 
 #### IP Addresses
 
-```
+```ruby
 >> server.public_ip_address
 "213.123.123.123"
 
@@ -220,21 +243,21 @@ bigv.servers[0]
 
 #### Start
 
-```
+```ruby
 >> server.start
 true
 ```
 
 #### Stop
 
-```
+```ruby
 >> server.stop
 true
 ```
 
 #### Reboot
 
-```
+```ruby
 >> server.reboot
 true
 ```
@@ -243,7 +266,7 @@ true
 
 wait_for blocks until the condition in the block is complete - great for after server creation!
 
-```
+```ruby
 >>  server = bigv.servers.create(:name => 'myserver-name',
 ?>                               :password => 'new_root_password')
   <Fog::Compute::BigV::Server
@@ -272,7 +295,7 @@ wait_for blocks until the condition in the block is complete - great for after s
 
 #### SSH
 
-```
+```ruby
 ?> server.ssh('uptime', :password => 'new_root_password')
 [#<Fog::SSH::Result:0x007f9d4642ae10 @command="uptime", @stderr="", @stdout=" 15:06:09 up 4 min,  1 user,  load average: 0.08, 0.04, 0.03\r\n", @status=0>]
 ```
@@ -281,7 +304,7 @@ wait_for blocks until the condition in the block is complete - great for after s
 
 Only available on servers which are turned off.
 
-```
+```ruby
 >> server.stop
 true
 
@@ -309,6 +332,7 @@ true
 
 #### Delete
 
+```ruby
 ?> server.destroy
 true
-
+```
