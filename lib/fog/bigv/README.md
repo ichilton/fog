@@ -222,6 +222,21 @@ bigv.servers[0]
                                  :initial_discs => [ {:label => 'vda', :storage_grade => 'sata', :size => 10240} ])
 
 
+#### Valid attributes
+
+These are the attributes you can set when creating (or updating) servers:
+
+- name (required)
+- password (required and only for creation)
+- cores
+- memory (in megabytes)
+- autoreboot_on
+- power_on
+- cdrom_url
+- hardware_profile
+- initial_discs (optional array, only for creation)
+
+
 #### IP Addresses
 
 ```ruby
