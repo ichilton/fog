@@ -353,3 +353,42 @@ If that is not intended, you need to do: server.reload after doing the save acti
 ?> server.destroy
 true
 ```
+
+Deleted servers are taken down, but are still around but with the deleted attribute set to true. This means they will not show in "bigv.servers" listings any more, but can be accessed using "bigv.servers.get()" in the same way as before it was deleted.
+
+Deleted servers can be manipulated as a collection with:
+
+```ruby
+bigv.servers.deleted
+```
+
+This works in exactly the same, array-like fashion as .servers does.
+
+
+#### Undelete
+
+Servers can be undeleted by setting the deleted flag back to false, or using:
+
+```ruby
+?> server.undelete
+true
+```
+
+..assuming you still have the server variable around! - if not:
+
+```ruby
+?> bigv.servers.get(12345).undelete
+true
+```
+
+
+#### Purge
+
+If you would like to purge a deleted server, or even delete an active server but ensure it can't be undeleted, you can use the purge method:
+
+```ruby
+?> server.purge
+true
+```
+
+This will not show in "bigv.servers" and will be completely removed, the IP address returned to the pool and the name re-usable.
