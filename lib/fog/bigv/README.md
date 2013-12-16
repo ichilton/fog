@@ -209,17 +209,21 @@ bigv.servers[0]
 
 #### Intialize first and create on save
 
-    server = bigv.servers.new(:name => 'myserver_name')
-    server.password = 'new_root_password'
-    server.save
+```ruby
+server = bigv.servers.new(:name => 'myserver_name')
+server.password = 'new_root_password'
+server.save
+```
 
 #### Custom Specification
 
-    server = bigv.servers.create(:name => 'my-bigger-server-name',
-                                 :password => 'new_root_password',
-                                 :cores => 2,
-                                 :memory => 2048,
-                                 :initial_discs => [ {:label => 'vda', :storage_grade => 'sata', :size => 10240} ])
+```ruby
+server = bigv.servers.create(:name => 'my-bigger-server-name',
+                             :password => 'new_root_password',
+                             :cores => 2,
+                             :memory => 2048,
+                             :initial_discs => [ {:label => 'vda', :storage_grade => 'sata', :size => 10240} ])
+```
 
 
 #### Valid attributes
