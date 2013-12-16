@@ -4,6 +4,9 @@ module Fog
 
     # get_account_overview
 
+    # If include_deleted (defaults to false) is set to true, deleted
+    # machines will be included in the response.
+
     # Returns the account, but with an overview parameter which causes
     # virtual machine data with nested disc and nic data to be included.
     # more information: http://bigv-api-docs.ichilton.co.uk/api/accounts/
