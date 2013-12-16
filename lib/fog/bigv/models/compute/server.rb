@@ -128,6 +128,12 @@ module Fog
           true
         end
 
+        def undelete
+          requires :id, :group_id
+          service.update_virtual_machine(id, group_id, { :deleted => false } )
+          true
+        end
+
 
         private
 
