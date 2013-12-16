@@ -342,6 +342,10 @@ true
   >
 ```
 
+Note that this will turn the server back on when you save as the server variable still has power_on = true and autoreboot_on = true still set.
+
+If that is not intended, you need to do: server.reload after doing the save action.
+
 
 #### Delete
 
