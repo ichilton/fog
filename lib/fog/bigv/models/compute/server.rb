@@ -134,6 +134,12 @@ module Fog
           true
         end
 
+        def purge
+          requires :id, :group_id
+          service.delete_virtual_machine(id, group_id, 'yes')
+          true
+        end
+
 
         private
 
