@@ -31,6 +31,9 @@ module Fog
         attribute :hardware_profile
         attribute :hardware_profile_locked
 
+        attribute :deleted
+
+
         # Just used for creation:
         attr_accessor :password
         attr_accessor :distribution

@@ -10,12 +10,15 @@ module Fog
 
       class Real
 
-        def get_account_overview
+        def get_account_overview(include_deleted=false)
+          params = { :view => 'overview' }
+          params[:include_deleted] = true if include_deleted
+
           bigv_api_request(
             :expects  => [200],
             :method   => 'GET',
             :path     => "accounts/#{@bigv_account}",
-            :query    => { :view => 'overview' }
+            :query    => params
           )
         end
 
