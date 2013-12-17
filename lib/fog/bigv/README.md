@@ -472,6 +472,65 @@ Note that this is cached on the first call, but you can force it to re-retrieve 
   >
 ```
 
+
+#### Nics (network interfaces)
+
+You can get the nics on the virtual machine by using:
+
+```ruby
+>> server.nics
+  <Fog::Compute::BigV::Nics
+    [
+      <Fog::Compute::BigV::Nic
+        id=12728,
+        server_id=12726,
+        label=nil,
+        ips=["213.138.109.175", "2001:41c8:51:4af:feff:ff:fe00:31b8"],
+        vlan_num=750,
+        mac="fe:ff:00:00:31:b8",
+        extra_ips={}
+      >
+    ]
+  >
+```
+
+This, like servers acts like an array:
+
+```ruby
+>> server.nics.count
+1
+>> server.nics.first
+  <Fog::Compute::BigV::Nic
+    id=12728,
+    server_id=12726,
+    label=nil,
+    ips=["213.138.109.175", "2001:41c8:51:4af:feff:ff:fe00:31b8"],
+    vlan_num=750,
+    mac="fe:ff:00:00:31:b8",
+    extra_ips={}
+  >
+```
+
+Note that this is cached on the first call, but you can force it to re-retrieve it from BigV:
+
+```ruby
+>> server.nics.reload
+  <Fog::Compute::BigV::Nics
+    [
+      <Fog::Compute::BigV::Nic
+        id=12728,
+        server_id=12726,
+        label=nil,
+        ips=["213.138.109.175", "2001:41c8:51:4af:feff:ff:fe00:31b8"],
+        vlan_num=750,
+        mac="fe:ff:00:00:31:b8",
+        extra_ips={}
+      >
+    ]
+  >
+```
+
+
 #### Iteration
 
 Now we can programatically control servers, we can do things like create and control multiple machines in one go. This could be very useful for bringing up a bunch of new web servers to increase capacity for instance!

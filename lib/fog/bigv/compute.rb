@@ -29,6 +29,8 @@ module Fog
       collection   :servers
       model        :disc
       collection   :discs
+      model        :nic
+      collection   :nics
 
       request_path 'fog/bigv/requests/compute'
       request      :get_account_overview

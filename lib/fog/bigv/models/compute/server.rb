@@ -141,6 +141,7 @@ module Fog
         end
 
 
+        # Peripherals:
         def discs
           @discs ||= begin
             Fog::Compute::BigV::Discs.new({
@@ -149,6 +150,16 @@ module Fog
             })
           end
         end
+
+        def nics
+          @nics ||= begin
+            Fog::Compute::BigV::Nics.new({
+              :service => service,
+              :server => self
+            })
+          end
+        end
+
 
 
         private
