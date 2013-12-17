@@ -331,7 +331,7 @@ wait_for blocks until the condition in the block is complete - great for after s
 #### SSH
 
 ```ruby
-?> server.ssh('uptime', :password => 'new_root_password')
+>> server.ssh('uptime', :password => 'new_root_password')
 [#<Fog::SSH::Result:0x007f9d4642ae10 @command="uptime", @stderr="", @stdout=" 15:06:09 up 4 min,  1 user,  load average: 0.08, 0.04, 0.03\r\n", @status=0>]
 ```
 
@@ -372,7 +372,7 @@ If that is not intended, you need to do: server.reload after doing the save acti
 #### Delete
 
 ```ruby
-?> server.destroy
+>> server.destroy
 true
 ```
 
@@ -381,7 +381,8 @@ Deleted servers are taken down, but are still around but with the deleted attrib
 Deleted servers can be manipulated as a collection with:
 
 ```ruby
-bigv.servers.deleted
+>> bigv.servers.deleted
+...
 ```
 
 This works in exactly the same, array-like fashion as .servers does.
@@ -392,14 +393,14 @@ This works in exactly the same, array-like fashion as .servers does.
 Servers can be undeleted by setting the deleted flag back to false, or using:
 
 ```ruby
-?> server.undelete
+>> server.undelete
 true
 ```
 
 ..assuming you still have the server variable around! - if not:
 
 ```ruby
-?> bigv.servers.get(12345).undelete
+>> bigv.servers.get(12345).undelete
 true
 ```
 
@@ -409,7 +410,7 @@ true
 If you would like to purge a deleted server, or even delete an active server but ensure it can't be undeleted, you can use the purge method:
 
 ```ruby
-?> server.purge
+>> server.purge
 true
 ```
 
