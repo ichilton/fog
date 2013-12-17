@@ -27,10 +27,14 @@ module Fog
       model_path   'fog/bigv/models/compute'
       model        :server
       collection   :servers
-      
+      model        :disc
+      collection   :discs
+
       request_path 'fog/bigv/requests/compute'
       request      :get_account_overview
+      request      :get_discs
       request      :get_nics
+
       request      :create_server
       request      :create_virtual_machine
       request      :update_virtual_machine

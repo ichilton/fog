@@ -417,6 +417,60 @@ true
 This will not show in "bigv.servers" and will be completely removed, the IP address returned to the pool and the name re-usable.
 
 
+#### Discs
+
+You can get the discs on the virtual machine by using:
+
+```ruby
+>> server.discs
+  <Fog::Compute::BigV::Discs
+    [
+      <Fog::Compute::BigV::Disc
+        id=13068,
+        server_id=12726,
+        label="vda",
+        size=20480,
+        storage_pool="tail04-sata2",
+        storage_grade="sata"
+      >
+    ]
+  >
+```
+
+This, like servers acts like an array:
+
+```ruby
+>> server.discs.count
+1
+
+>> server.discs.first
+  <Fog::Compute::BigV::Disc
+    id=13068,
+    server_id=12726,
+    label="vda",
+    size=20480,
+    storage_pool="tail04-sata2",
+    storage_grade="sata"
+  >
+```
+
+Note that this is cached on the first call, but you can force it to re-retrieve it from BigV:
+
+>> server.discs.reload
+  <Fog::Compute::BigV::Discs
+    [
+      <Fog::Compute::BigV::Disc
+        id=13068,
+        server_id=12726,
+        label="vda",
+        size=20480,
+        storage_pool="tail04-sata2",
+        storage_grade="sata"
+      >
+    ]
+  >
+
+
 #### Iteration
 
 Now we can programatically control servers, we can do things like create and control multiple machines in one go. This could be very useful for bringing up a bunch of new web servers to increase capacity for instance!

@@ -141,6 +141,16 @@ module Fog
         end
 
 
+        def discs
+          @discs ||= begin
+            Fog::Compute::BigV::Discs.new({
+              :service => service,
+              :server => self
+            })
+          end
+        end
+
+
         private
 
           def _virtual_machine_params
