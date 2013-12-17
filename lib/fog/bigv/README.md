@@ -129,10 +129,25 @@ $ bin/fog
 
 To maintain compatibility with other Fog providers, virtual machines in BigV terminology are called servers in Fog. 
 
+#### Valid attributes
+
+These are the attributes you can set when creating (or updating) servers:
+
+- **name** (required - must be unique in the account)
+- **password** - root password for the new server (required - only for creation)
+- **cores** - number of CPU cores
+- **memory** (in megabytes)
+- **autoreboot_on** - whether the VM should be restarted on power down
+- **power_on** - whether the VM should be powered on
+- **cdrom_url** - URL of a .iso file to use as a CDROM drive for custom installs
+- **hardware_profile**
+- **initial_discs** (optional array, only for creation - see example below)
+
+
 ### How many?
 
 ```ruby
-?> bigv.servers.count
+>> bigv.servers.count
 4
 ```
 
@@ -246,21 +261,6 @@ server = bigv.servers.create(:name => 'my-bigger-server-name',
                              :memory => 2048,
                              :initial_discs => [ {:label => 'vda', :storage_grade => 'sata', :size => 10240} ])
 ```
-
-
-#### Valid attributes
-
-These are the attributes you can set when creating (or updating) servers:
-
-- name (required)
-- password (required and only for creation)
-- cores
-- memory (in megabytes)
-- autoreboot_on
-- power_on
-- cdrom_url
-- hardware_profile
-- initial_discs (optional array, only for creation)
 
 
 #### IP Addresses
