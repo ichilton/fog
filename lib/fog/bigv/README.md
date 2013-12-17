@@ -415,3 +415,80 @@ true
 ```
 
 This will not show in "bigv.servers" and will be completely removed, the IP address returned to the pool and the name re-usable.
+
+
+#### Iteration
+
+Now we can programatically control servers, we can do things like create and control multiple machines in one go. This could be very useful for bringing up a bunch of new web servers to increase capacity for instance!
+
+Below is a little script I whipped up to test out creating five servers at once. It first loops round and sets them all off creating. It then waits for each one to become available and prints it's details. It then waits for each to be sucessfullly ssh'd in to and purges them (so the resources are freed back up).
+
+Obviously use this with caution if you don't want to get landed with a big bill!
+
+Here is the code:
+
+```ruby
+NUM_OF_SERVERS=5
+PASSWD = 'YOUR_PASSWORD_HERE'
+
+bigv = Fog::Compute.new({
+  :provider => 'BigV',
+  :bigv_account  => 'ACCOUNT_NAME_HERE',
+  :bigv_username => 'USERNAME_HERE',
+  :bigv_password => 'PASSWORD_HERE'
+})
+
+(1..NUM_OF_SERVERS).each do |s|
+  puts "Creating server #{s}"
+  bigv.servers.create(:name => "fog-test-#{s}", :password => PASSWD)
+end
+
+(1..NUM_OF_SERVERS).each do |s|
+  puts "Waiting for server #{s} to come up"
+  server = bigv.servers.get("fog-test-#{s}")
+  puts server.wait_for { ready? }
+  puts "#{server.id} - #{server.public_ip_address}"
+end
+
+(1..NUM_OF_SERVERS).each do |s|
+  puts "Waiting for server #{s} to be accessible"
+  server = bigv.servers.get("fog-test-#{s}")
+  puts server.wait_for { sshable?(:password => PASSWD) }
+  server.purge   # can not be undeleted!
+end
+```
+
+and here is the output from that:
+
+```
+Creating server 1
+Creating server 2
+Creating server 3
+Creating server 4
+Creating server 5
+Waiting for server 1 to come up
+{:duration=>55.0}
+12717 - 213.138.xxx.xxx
+Waiting for server 2 to come up
+{:duration=>4.0}
+12718 - 213.138.xxx.xxx
+Waiting for server 3 to come up
+{:duration=>6.0}
+12719 - 213.138.xxx.xxx
+Waiting for server 4 to come up
+{:duration=>6.0}
+12720 - 213.138.xxx.xxx
+Waiting for server 5 to come up
+{:duration=>3.0}
+12721 - 213.138.xxx.xxx
+Waiting for server 1 to be accessible
+{:duration=>168.0}
+Waiting for server 2 to be accessible
+{:duration=>10.0}
+Waiting for server 3 to be accessible
+{:duration=>0}
+Waiting for server 4 to be accessible
+{:duration=>0}
+Waiting for server 5 to be accessible
+{:duration=>0}
+```
