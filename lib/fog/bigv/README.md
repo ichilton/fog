@@ -183,6 +183,28 @@ bigv.servers[0]
   >
 ```
 
+Or you can do the same using the name:
+
+```ruby
+>> server = bigv.servers.get('myserver-name')
+  <Fog::Compute::BigV::Server
+    id=12610,
+    group_id=1,
+    name="myserver-name",
+    hostname="myserver-name.default.myaccountname.uk0.bigv.io",
+    cores=1,
+    memory=1024,
+    autoreboot_on=true,
+    power_on=true,
+    management_address="213.123.123.123",
+    cdrom_url=nil,
+    head="head01",
+    hardware_profile="virtio2013",
+    hardware_profile_locked=false
+  >
+```
+
+
 ### Create new virtual machine
 
 #### Default Options (1 core, 1GB RAM, 20GB SATA Disc)
