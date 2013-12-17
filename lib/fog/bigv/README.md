@@ -456,6 +456,7 @@ This, like servers acts like an array:
 
 Note that this is cached on the first call, but you can force it to re-retrieve it from BigV:
 
+```ruby
 >> server.discs.reload
   <Fog::Compute::BigV::Discs
     [
@@ -469,7 +470,7 @@ Note that this is cached on the first call, but you can force it to re-retrieve 
       >
     ]
   >
-
+```
 
 #### Iteration
 
