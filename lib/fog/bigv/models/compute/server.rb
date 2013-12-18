@@ -97,11 +97,11 @@ module Fog
 
         # IP's:
         def ipv4_address
-          _match_ip_address(_primary_ip_addresses, /(?:\d{1,3}\.){3}\d{1,3}/)
+          nics.primary.ipv4_addresses.first
         end
 
         def ipv6_address
-          _match_ip_address(_primary_ip_addresses, /^[a-z0-9\:]+$/)
+          nics.primary.ipv6_addresses.first
         end
 
         def public_ip_address
@@ -109,7 +109,15 @@ module Fog
         end
 
         def ip_addresses
-          attributes['network_interfaces'].map{ |n| n['ips'] }.flatten
+          nics.map { |n| n.ips }.flatten
+        end
+
+        def ipv4_addresses
+          _match_ips(ip_addresses, IPV4_ADDRESS)
+        end
+
+        def ipv6_addresses
+          _match_ips(ip_addresses, IPV6_ADDRESS)
         end
 
 
@@ -160,6 +168,10 @@ module Fog
 
         private
 
+          def _match_ips(ips, regex)
+            ips.select { |ip| ip =~ regex }
+          end
+
           def _virtual_machine_params
             attributes.select { |a| VALID_ATTRIBUTES.include?(a) && !attributes[a].nil? }
           end
@@ -191,17 +203,6 @@ module Fog
 
             response = service.update_virtual_machine(id, group_id, _virtual_machine_params)
             merge_attributes(response.body)
-          end
-
-          def _primary_ip_addresses
-            if attributes['network_interfaces'] && attributes['network_interfaces'].count > 0
-              attributes['network_interfaces'].first['ips']
-            end
-          end
-
-          def _match_ip_address(ip_addresses, regex)
-            matching_ips = ip_addresses.select { |ip| ip =~ regex }
-            matching_ips.first if matching_ips.count > 0
           end
 
       end

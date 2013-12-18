@@ -29,6 +29,11 @@ module Fog
             nil
         end
 
+
+        def primary
+          @primary_nic ||= all.first
+        end
+
       end
 
     end

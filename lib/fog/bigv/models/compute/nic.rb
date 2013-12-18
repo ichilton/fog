@@ -21,6 +21,26 @@ module Fog
         attribute :mac
         attribute :extra_ips
 
+
+        def ip_addresses
+          ips
+        end
+
+        def ipv4_addresses
+          _match_ips(IPV4_ADDRESS)
+        end
+
+        def ipv6_addresses
+          _match_ips(IPV6_ADDRESS)
+        end
+
+
+        private
+
+        def _match_ips(regex)
+          ips.select { |ip| ip =~ regex }
+        end
+
       end
 
     end

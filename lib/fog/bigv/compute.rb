@@ -43,6 +43,10 @@ module Fog
       request      :delete_virtual_machine
 
 
+      IPV4_ADDRESS = /(?:\d{1,3}\.){3}\d{1,3}/
+      IPV6_ADDRESS = /^[a-z0-9\:]+$/
+
+
       class Real
 
         def initialize(options={})

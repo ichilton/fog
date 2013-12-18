@@ -190,7 +190,7 @@ bigv.servers[0]
     memory=1024,
     autoreboot_on=true,
     power_on=true,
-    management_address="213.123.123.123",
+    management_address="213.xxx.xxx.xxx",
     cdrom_url=nil,
     head="head01",
     hardware_profile="virtio2013",
@@ -211,7 +211,7 @@ Or you can do the same using the name:
     memory=1024,
     autoreboot_on=true,
     power_on=true,
-    management_address="213.123.123.123",
+    management_address="213.xxx.xxx.xxx",
     cdrom_url=nil,
     head="head01",
     hardware_profile="virtio2013",
@@ -236,7 +236,7 @@ Or you can do the same using the name:
     memory=1024,
     autoreboot_on=true,
     power_on=false,
-    management_address="213.123.123.123",
+    management_address="213.xxx.xxx.xxx",
     cdrom_url=nil,
     head=nil,
     hardware_profile="virtio2013",
@@ -267,13 +267,26 @@ server = bigv.servers.create(:name => 'my-bigger-server-name',
 
 ```ruby
 >> server.public_ip_address
-"213.123.123.123"
+"213.xxx.xxx.xxx"
+
+>> server.public_ip_address
+"213.xxx.xxx.xxx"
 
 >> server.ipv4_address
-"213.123.132.123"
+"213.xxx.xxx.xxx"
 
 >> server.ipv6_address
-"2001:41c8:ff:ff:ffff:ff:ffff:ffff"
+"2001:ffff:ff:fff:ffff:ff:ffff:ffff"
+
+>> server.ip_addresses
+[""213.xxx.xxx.xxx"", "2001:ffff:ff:fff:ffff:ff:ffff:ffff"]
+
+>> server.ipv4_addresses
+["213.xxx.xxx.xxx"]
+
+>> server.ipv6_addresses
+["2001:ffff:ff:fff:ffff:ff:ffff:ffff"]
+
 ```
 
 #### Start
@@ -313,7 +326,7 @@ wait_for blocks until the condition in the block is complete - great for after s
     memory=1024,
     autoreboot_on=true,
     power_on=false,
-    management_address="213.123.123.123",
+    management_address="213.xxx.xxx.xxx",
     cdrom_url=nil,
     head=nil,
     hardware_profile="virtio2013",
@@ -356,7 +369,7 @@ true
     memory=1024,
     autoreboot_on=true,
     power_on=true,
-    management_address="213.123.123.123",
+    management_address="213.xxx.xxx.xxx",
     cdrom_url=nil,
     head="head23",
     hardware_profile="virtio2013",
@@ -485,9 +498,9 @@ You can get the nics on the virtual machine by using:
         id=12728,
         server_id=12726,
         label=nil,
-        ips=["213.138.109.175", "2001:41c8:51:4af:feff:ff:fe00:31b8"],
+        ips=["213.xxx.xxx.xxx", "2001:ffff:ff:fff:ffff:ff:ffff:ffff"],
         vlan_num=750,
-        mac="fe:ff:00:00:31:b8",
+        mac="fe:ff:00:00:ff:ff",
         extra_ips={}
       >
     ]
@@ -499,19 +512,33 @@ This, like servers acts like an array:
 ```ruby
 >> server.nics.count
 1
+
 >> server.nics.first
   <Fog::Compute::BigV::Nic
     id=12728,
     server_id=12726,
     label=nil,
-    ips=["213.138.109.175", "2001:41c8:51:4af:feff:ff:fe00:31b8"],
+    ips=["213.xxx.xxx.xxx", "2001:ffff:ff:fff:ffff:ff:ffff:ffff"],
     vlan_num=750,
-    mac="fe:ff:00:00:31:b8",
+    mac="fe:ff:00:00:ff:ff",
     extra_ips={}
   >
 ```
 
-Note that this is cached on the first call, but you can force it to re-retrieve it from BigV:
+IP Addresses:
+
+```ruby
+>> server.nics.first.ip_addresses
+["213.xxx.xxx.xxx", "2001:ffff:ff:fff:ffff:ff:ffff:ffff"]
+
+>> server.nics.first.ipv4_addresses
+["213.xxx.xxx.xxx"]
+
+>> server.nics.first.ipv6_addresses
+["2001:ffff:ff:fff:ffff:ff:ffff:ffff"]
+```
+
+Note that nics are cached on the first call, but you can force it to re-retrieve it from BigV:
 
 ```ruby
 >> server.nics.reload
@@ -521,12 +548,27 @@ Note that this is cached on the first call, but you can force it to re-retrieve 
         id=12728,
         server_id=12726,
         label=nil,
-        ips=["213.138.109.175", "2001:41c8:51:4af:feff:ff:fe00:31b8"],
+        ips=["213.xxx.xxx.xxx", "2001:ffff:ff:fff:ffff:ff:ffff:ffff"],
         vlan_num=750,
-        mac="fe:ff:00:00:31:b8",
+        mac="fe:ff:00:00:ff:ff",
         extra_ips={}
       >
     ]
+  >
+```
+
+Get the primary interface (again, this is cached on the first call so will need reload to refresh):
+
+```ruby
+>> server.nics.primary
+  <Fog::Compute::BigV::Nic
+    id=12728,
+    server_id=12726,
+    label=nil,
+    ips=["213.xxx.xxx.xxx", "2001:ffff:ff:fff:ffff:ff:ffff:ffff"],
+    vlan_num=750,
+    mac="fe:ff:00:00:ff:ff",
+    extra_ips={}
   >
 ```
 
