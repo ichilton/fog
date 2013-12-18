@@ -143,21 +143,17 @@ module Fog
 
         # Peripherals:
         def discs
-          @discs ||= begin
-            Fog::Compute::BigV::Discs.new({
-              :service => service,
-              :server => self
-            })
-          end
+          @discs ||= Fog::Compute::BigV::Discs.new({
+                       :service => service,
+                       :server => self
+                     })
         end
 
         def nics
-          @nics ||= begin
-            Fog::Compute::BigV::Nics.new({
-              :service => service,
-              :server => self
-            })
-          end
+          @nics ||= Fog::Compute::BigV::Nics.new({
+                      :service => service,
+                      :server => self
+                    })
         end
 
 
