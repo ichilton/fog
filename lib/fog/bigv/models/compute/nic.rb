@@ -1,4 +1,4 @@
-require 'fog/compute/models/server'
+require 'fog/core/model'
 
 module Fog
   module Compute
