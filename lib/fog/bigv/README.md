@@ -664,6 +664,20 @@ Waiting for server 5 to be accessible
 1
 ```
 
+### Names?
+
+```ruby
+>> bigv.groups.map(&:name)
+["default"]
+```
+
+### ID's and Names?
+
+```ruby
+>> bigv.groups.map { |s| { s.id => s.name} }
+[{1=>"default"}]
+```
+
 ### All
 
 ```ruby
@@ -671,19 +685,35 @@ Waiting for server 5 to be accessible
   <Fog::Compute::BigV::Groups
     [
       <Fog::Compute::BigV::Group
-        id=123,
+        id=1,
         name="default"
       >
     ]
   >
 ```
 
+### Use like an Array
+
+```ruby
+>> bigv.groups[0]
+      <Fog::Compute::BigV::Group
+        id=1,
+        name="default"
+      >
+>> bigv.groups.first
+      <Fog::Compute::BigV::Group
+        id=1,
+        name="default"
+      >
+
+```
+
 ### Single by ID:
 
 ```ruby
-  >> b.groups.get(306)
+  >> b.groups.get(1)
       <Fog::Compute::BigV::Group
-        id=306,
+        id=1,
         name="default"
       >
 ```
@@ -693,7 +723,7 @@ Waiting for server 5 to be accessible
 ```ruby
 >> b.groups.get('default')
       <Fog::Compute::BigV::Group
-        id=306,
+        id=1,
         name="default"
       >
 ```
