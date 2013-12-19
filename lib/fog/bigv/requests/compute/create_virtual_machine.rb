@@ -30,7 +30,7 @@ module Fog
             :expects  => [202],
             :method   => 'POST',
             :path     => "/accounts/#{@bigv_account}/groups/#{group_id}/virtual_machines",
-            :body     => Fog::JSON.encode(post_data)
+            :body     => Fog::JSON.encode(options)
           )
         end
 
