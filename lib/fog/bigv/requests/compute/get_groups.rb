@@ -16,7 +16,7 @@ module Fog
           bigv_api_request(
             :expects  => [200],
             :method   => 'GET',
-            :path     => "/accounts/#{@bigv_account}/groups"
+            :path     => "accounts/#{@bigv_account}/groups"
           )
         end
 

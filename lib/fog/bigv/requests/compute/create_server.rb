@@ -43,7 +43,7 @@ module Fog
           bigv_api_request(
             :expects  => [202],
             :method   => 'POST',
-            :path     => "/accounts/#{@bigv_account}/groups/#{group_id}/vm_create",
+            :path     => "accounts/#{@bigv_account}/groups/#{group_id}/vm_create",
             :body     => Fog::JSON.encode(options)
           )
         end

@@ -20,7 +20,7 @@ module Fog
           bigv_api_request(
             :expects  => [200],
             :method   => 'GET',
-            :path     => "/accounts/#{@bigv_account}/groups/#{group_id}/virtual_machines/#{vm_id}/discs"
+            :path     => "accounts/#{@bigv_account}/groups/#{group_id}/virtual_machines/#{vm_id}/discs"
           )
         end
 

@@ -28,7 +28,7 @@ module Fog
           bigv_api_request(
             :expects  => [200],
             :method   => 'PUT',
-            :path     => "/accounts/#{@bigv_account}/groups/#{group_id}/virtual_machines/#{vm_id}",
+            :path     => "accounts/#{@bigv_account}/groups/#{group_id}/virtual_machines/#{vm_id}",
             :body     => Fog::JSON.encode(options)
           )
         end
