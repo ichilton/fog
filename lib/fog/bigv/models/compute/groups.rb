@@ -21,7 +21,7 @@ module Fog
 
 
         def get(id)
-          all.find { |g| g.id == id || g.name == id }
+          new(service.get_group(id).body)
 
           rescue Fog::Errors::NotFound
             nil

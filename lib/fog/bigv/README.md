@@ -727,3 +727,85 @@ Waiting for server 5 to be accessible
         name="default"
       >
 ```
+
+
+### Create
+
+```ruby
+>> bigv.groups.map(&:name)
+["default"]
+
+>> bigv.groups.create(:name => 'test1')
+  <Fog::Compute::BigV::Group
+    id=6165,
+    name="test1"
+  >
+
+>> group = bigv.groups.new(:name => 'test2')
+  <Fog::Compute::BigV::Group
+    id=nil,
+    name="test2"
+  >
+
+>> bigv.groups.map(&:name)
+["default", "test1"]
+
+>> group.save
+  <Fog::Compute::BigV::Group
+    id=6166,
+    name="test2"
+  >
+
+>> bigv.groups.map(&:name)
+["default", "test1", "test2"]
+
+>> group = bigv.groups.new
+  <Fog::Compute::BigV::Group
+    id=nil,
+    name=nil
+  >
+
+>> group.name = 'test3'
+"test3"
+
+>> group.save
+  <Fog::Compute::BigV::Group
+    id=6167,
+    name="test3"
+  >
+
+>> bigv.groups.map(&:name)
+["default", "test1", "test2", "test3"]
+```
+
+### Update
+
+```ruby
+>> group = bigv.groups.get('test3')
+  <Fog::Compute::BigV::Group
+    id=6167,
+    name="test3"
+  >
+
+>> group.name = 'test3-changed'
+"test3-changed"
+
+>> group.save
+  <Fog::Compute::BigV::Group
+    id=6167,
+    name="test3-changed"
+  >
+
+>> bigv.groups.map(&:name)
+["default", "test1", "test2", "test3-changed"]
+```
+
+### Delete
+
+```ruby
+>> group.destroy
+true
+
+>> bigv.groups.map(&:name)
+["default", "test1", "test2"]
+```

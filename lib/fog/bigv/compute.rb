@@ -36,8 +36,15 @@ module Fog
 
       request_path 'fog/bigv/requests/compute'
       request      :get_account_overview
+
       request      :get_discs
+
       request      :get_groups
+      request      :get_group
+      request      :create_group
+      request      :update_group
+      request      :delete_group
+
       request      :get_nics
 
       request      :create_server
