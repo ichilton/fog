@@ -157,6 +157,11 @@ module Fog
                      })
         end
 
+        def discs?
+          not discs.empty?
+        end
+
+
         def nics
           @nics ||= Fog::Compute::BigV::Nics.new({
                       :service => service,
@@ -164,6 +169,9 @@ module Fog
                     })
         end
 
+        def nics?
+          not nics.empty?
+        end
 
 
         private

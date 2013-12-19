@@ -456,6 +456,9 @@ This, like servers acts like an array:
 >> server.discs.count
 1
 
+>> server.discs?
+true
+
 >> server.discs.first
   <Fog::Compute::BigV::Disc
     id=13068,
@@ -512,6 +515,9 @@ This, like servers acts like an array:
 ```ruby
 >> server.nics.count
 1
+
+>> server.nics?
+true
 
 >> server.nics.first
   <Fog::Compute::BigV::Nic
