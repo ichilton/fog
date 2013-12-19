@@ -25,16 +25,19 @@ module Fog
       recognizes   :bigv_api_url
 
       model_path   'fog/bigv/models/compute'
-      model        :server
-      collection   :servers
       model        :disc
       collection   :discs
+      model        :group
+      collection   :groups
       model        :nic
       collection   :nics
+      model        :server
+      collection   :servers
 
       request_path 'fog/bigv/requests/compute'
       request      :get_account_overview
       request      :get_discs
+      request      :get_groups
       request      :get_nics
 
       request      :create_server

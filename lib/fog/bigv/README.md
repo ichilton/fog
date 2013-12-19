@@ -654,3 +654,46 @@ Waiting for server 4 to be accessible
 Waiting for server 5 to be accessible
 {:duration=>0}
 ```
+
+## Groups
+
+### How many?
+
+```ruby
+>> bigv.groups.count
+1
+```
+
+### All
+
+```ruby
+>> bigv.groups
+  <Fog::Compute::BigV::Groups
+    [
+      <Fog::Compute::BigV::Group
+        id=123,
+        name="default"
+      >
+    ]
+  >
+```
+
+### Single by ID:
+
+```ruby
+  >> b.groups.get(306)
+      <Fog::Compute::BigV::Group
+        id=306,
+        name="default"
+      >
+```
+
+### Single by Name:
+
+```ruby
+>> b.groups.get('default')
+      <Fog::Compute::BigV::Group
+        id=306,
+        name="default"
+      >
+```
