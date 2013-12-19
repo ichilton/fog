@@ -30,8 +30,8 @@ module Fog
 
 
         def get(id)
-          server = get_all_servers(true).select { |vm| vm['id'] == id || vm['name'] == id }
-          new(server.first) if server && server.first
+          server = get_all_servers(true).find { |vm| vm['id'] == id || vm['name'] == id }
+          new(server) if server
 
           rescue Fog::Errors::NotFound
             nil
