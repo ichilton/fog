@@ -129,7 +129,7 @@ $ bin/fog
 
 To maintain compatibility with other Fog providers, virtual machines in BigV terminology are called servers in Fog. 
 
-#### Valid attributes
+### Valid attributes
 
 These are the attributes you can set when creating (or updating) servers:
 
@@ -263,7 +263,7 @@ server = bigv.servers.create(:name => 'my-bigger-server-name',
 ```
 
 
-#### IP Addresses
+### IP Addresses
 
 ```ruby
 >> server.public_ip_address
@@ -289,28 +289,28 @@ server = bigv.servers.create(:name => 'my-bigger-server-name',
 
 ```
 
-#### Start
+### Start
 
 ```ruby
 >> server.start
 true
 ```
 
-#### Stop
+### Stop
 
 ```ruby
 >> server.stop
 true
 ```
 
-#### Reboot
+### Reboot
 
 ```ruby
 >> server.reboot
 true
 ```
 
-#### wait_for
+### wait_for
 
 wait_for blocks until the condition in the block is complete - great for after server creation!
 
@@ -341,7 +341,7 @@ wait_for blocks until the condition in the block is complete - great for after s
 
 ```
 
-#### SSH
+### SSH
 
 ```ruby
 >> server.ssh('uptime', :password => 'new_root_password')
@@ -382,7 +382,7 @@ Note that this will turn the server back on when you save as the server variable
 If that is not intended, you need to do: server.reload after doing the save action.
 
 
-#### Delete
+### Delete
 
 ```ruby
 >> server.destroy
@@ -418,7 +418,7 @@ true
 ```
 
 
-#### Purge
+### Purge
 
 If you would like to purge a deleted server, or even delete an active server but ensure it can't be undeleted, you can use the purge method:
 
@@ -430,7 +430,7 @@ true
 This will not show in "bigv.servers" and will be completely removed, the IP address returned to the pool and the name re-usable.
 
 
-#### Discs
+### Discs
 
 You can get the discs on the virtual machine by using:
 
@@ -489,7 +489,7 @@ Note that this is cached on the first call, but you can force it to re-retrieve 
 ```
 
 
-#### Nics (network interfaces)
+### Nics (network interfaces)
 
 You can get the nics on the virtual machine by using:
 
@@ -579,7 +579,7 @@ Get the primary interface (again, this is cached on the first call so will need 
 ```
 
 
-#### Iteration
+### Iteration
 
 Now we can programatically control servers, we can do things like create and control multiple machines in one go. This could be very useful for bringing up a bunch of new web servers to increase capacity for instance!
 
