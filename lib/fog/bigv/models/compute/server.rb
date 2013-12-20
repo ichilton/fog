@@ -188,7 +188,7 @@ module Fog
             initial_discs.kind_of?(Array) ? initial_discs : [ DEFAULT_DISC ]
           end
 
-          def _new_server_params
+          def _create_server_params
             {
               :virtual_machine  => _virtual_machine_params,
               :discs            => _initial_discs,
@@ -202,7 +202,7 @@ module Fog
           def _create_server
             requires :group_id, :name, :password
 
-            response = service.create_server(group_id, _new_server_params)
+            response = service.create_server(group_id, _create_server_params)
             merge_attributes(response.body['virtual_machine'])
           end
 

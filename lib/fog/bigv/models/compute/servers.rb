@@ -16,21 +16,21 @@ module Fog
 
 
         def all(filters = {})
-          load(get_all_servers)
+          load(all_servers)
 
           # TODO - implement filters!
         end
 
 
         def deleted(filters = {})
-          load(get_deleted_servers)
+          load(deleted_servers)
 
           # TODO - implement filters!
         end
 
 
         def get(id)
-          server = get_all_servers(true).find { |vm| vm['id'] == id || vm['name'] == id }
+          server = all_servers(true).find { |vm| vm['id'] == id || vm['name'] == id }
           new(server) if server
 
           rescue Fog::Errors::NotFound
@@ -40,13 +40,13 @@ module Fog
 
         private
 
-        def get_all_servers(include_deleted=false)
+        def all_servers(include_deleted=false)
           account_overview = service.get_account_overview(include_deleted).body
           account_overview['groups'].map { |g| g['virtual_machines'] }.flatten(1)
         end
 
 
-        def get_deleted_servers
+        def deleted_servers
           get_all_servers(true).select { |vm| vm['deleted'] == true }
         end
 
