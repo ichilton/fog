@@ -14,23 +14,25 @@ module Fog
 
         model Fog::Compute::BigV::Server
 
+        attr_accessor :group
+
 
         def all(filters = {})
-          load(all_servers)
+          load(_servers)
 
           # TODO - implement filters!
         end
 
 
         def deleted(filters = {})
-          load(deleted_servers)
+          load(_deleted_servers)
 
           # TODO - implement filters!
         end
 
 
         def get(id)
-          server = all_servers(true).find { |vm| vm['id'] == id || vm['name'] == id }
+          server = _servers(true).find { |vm| vm['id'] == id || vm['name'] == id }
           new(server) if server
 
           rescue Fog::Errors::NotFound
@@ -38,16 +40,41 @@ module Fog
         end
 
 
-        private
+        def new(attributes={})
+          unless attributes.is_a?(::Hash)
+            raise(ArgumentError.new("Initialization parameters must be an attributes hash, got #{attributes.class} #{attributes.inspect}"))
+          end
 
-        def all_servers(include_deleted=false)
-          account_overview = service.get_account_overview(include_deleted).body
-          account_overview['groups'].map { |g| g['virtual_machines'] }.flatten(1)
+          attributes[:group_id] = group.id if in_group? && attributes[:group_id].nil?
+          super(attributes)
         end
 
 
-        def deleted_servers
-          get_all_servers(true).select { |vm| vm['deleted'] == true }
+        def in_group?
+          !! (group && group.id)
+        end
+
+
+        private
+
+        def _servers(include_deleted=false)
+          # Use account overview request as it gives all groups and embeds discs & nics:
+          account_overview = service.get_account_overview(include_deleted).body
+
+          # Only servers in group:
+          if group && group.id
+            group_overview = account_overview['groups'].find { |g| g['id'] == group.id }
+            group_overview['virtual_machines']
+
+          # All servers:
+          else
+            account_overview['groups'].map { |g| g['virtual_machines'] }.flatten(1)
+          end
+        end
+
+
+        def _deleted_servers
+          _servers(true).select { |vm| vm['deleted'] == true }
         end
 
       end

@@ -14,6 +14,7 @@ module Fog
         identity :id
         attribute :name
 
+
         def save
           if persisted?
             response = _update
@@ -24,10 +25,19 @@ module Fog
           merge_attributes(response.body)
         end
 
+
         def destroy
           requires :id
           service.delete_group(id)
           true
+        end
+
+
+        def servers
+          Fog::Compute::BigV::Servers.new({
+            :service => service,
+            :group => self
+          })
         end
 
 
@@ -42,6 +52,7 @@ module Fog
           requires :id, :name
           response = service.update_group(id, attributes)
         end
+
       end
 
     end

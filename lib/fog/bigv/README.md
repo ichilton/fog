@@ -809,3 +809,74 @@ true
 >> bigv.groups.map(&:name)
 ["default", "test1", "test2"]
 ```
+
+### Servers in Group
+
+```ruby
+>> bigv.servers.count
+6
+
+>> bigv.groups.first
+  <Fog::Compute::BigV::Group
+    id=306,
+    name="default"
+  >
+
+>> bigv.groups.first.servers.count
+6
+
+>> bigv.groups.last
+  <Fog::Compute::BigV::Group
+    id=6168,
+    name="test3"
+  >
+
+>> bigv.groups.last.servers.count
+0
+
+>> bigv.groups.last.servers.create(:name => 'fog-group3-test1', :password => 'password_here')
+  <Fog::Compute::BigV::Server
+    id=12742,
+    group_id=6168,
+    name="fog-group3-test1",
+    hostname="fog-group3-test1.test3.ichilton.uk0.bigv.io",
+    cores=1,
+    memory=1024,
+    autoreboot_on=true,
+    power_on=false,
+    management_address="213.138.104.213",
+    cdrom_url=nil,
+    head=nil,
+    hardware_profile="virtio2013",
+    hardware_profile_locked=false,
+    deleted=false
+  >
+
+>> bigv.groups.last.servers.count
+1
+
+>> bigv.servers.count
+7
+
+>> bigv.groups.last.servers
+  <Fog::Compute::BigV::Servers
+    [
+      <Fog::Compute::BigV::Server
+        id=12742,
+        group_id=6168,
+        name="fog-group3-test1",
+        hostname="fog-group3-test1.test3.myaccountname.uk0.bigv.io",
+        cores=1,
+        memory=1024,
+        autoreboot_on=true,
+        power_on=true,
+        management_address="213.xxx.xxx.xxx",
+        cdrom_url=nil,
+        head="head22",
+        hardware_profile="virtio2013",
+        hardware_profile_locked=false,
+        deleted=false
+      >
+    ]
+  >
+```
