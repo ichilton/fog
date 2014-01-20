@@ -37,6 +37,8 @@ module Fog
       request_path 'fog/bigv/requests/compute'
       request      :get_account_overview
 
+      request      :get_definitions
+
       request      :get_discs
 
       request      :get_groups
