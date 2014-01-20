@@ -50,11 +50,13 @@ module Fog
       request      :create_nic
       request      :update_nic
       request      :delete_nic
-
-      request      :create_server
+      
+      request      :get_virtual_machines
+      request      :get_virtual_machine
       request      :create_virtual_machine
       request      :update_virtual_machine
       request      :delete_virtual_machine
+      request      :create_server
 
 
       IPV4_ADDRESS = /(?:\d{1,3}\.){3}\d{1,3}/
