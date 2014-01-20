@@ -50,7 +50,13 @@ module Fog
       request      :create_nic
       request      :update_nic
       request      :delete_nic
-      
+
+      request      :get_users
+      request      :get_user
+      request      :create_user
+      request      :update_user
+      request      :delete_user
+
       request      :get_virtual_machines
       request      :get_virtual_machine
       request      :create_virtual_machine
