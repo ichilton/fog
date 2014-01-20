@@ -46,6 +46,10 @@ module Fog
       request      :delete_group
 
       request      :get_nics
+      request      :get_nic
+      request      :create_nic
+      request      :update_nic
+      request      :delete_nic
 
       request      :create_server
       request      :create_virtual_machine
