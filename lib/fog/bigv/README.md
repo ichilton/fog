@@ -429,6 +429,12 @@ true
 
 This will not show in "bigv.servers" and will be completely removed, the IP address returned to the pool and the name re-usable.
 
+If you would like to purge all of your deleted servers, you can use:
+
+```ruby
+>> bigv.servers.purge_all
+true
+```
 
 ### Discs
 

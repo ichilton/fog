@@ -55,6 +55,14 @@ module Fog
         end
 
 
+        def purge_all
+          deleted.each do |server|
+            server.purge
+          end
+          true
+        end
+
+
         private
 
         def _servers(include_deleted=false)
