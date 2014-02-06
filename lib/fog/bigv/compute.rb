@@ -65,6 +65,7 @@ module Fog
       request      :update_virtual_machine
       request      :delete_virtual_machine
       request      :create_server
+      request      :reimage_virtual_machine
 
 
       IPV4_ADDRESS = /(?:\d{1,3}\.){3}\d{1,3}/

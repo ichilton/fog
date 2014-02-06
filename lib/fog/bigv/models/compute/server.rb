@@ -149,6 +149,14 @@ module Fog
         end
 
 
+        # Re-image:
+        def reimage(options = {})
+          requires :id, :group_id
+          service.reimage_virtual_machine(id, group_id, options)
+          true
+        end
+
+
         # Peripherals:
         def discs
           @discs ||= Fog::Compute::BigV::Discs.new({
