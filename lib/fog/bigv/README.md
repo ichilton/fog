@@ -436,6 +436,25 @@ If you would like to purge all of your deleted servers, you can use:
 true
 ```
 
+### Re-image
+
+If you wuold like to re-image (re-install) the virtual machine, you can use the reimage method. This takes distribution and a root_password parameters like when creating a VM. This can only be performed on a Virtual Machine in the off state.
+
+```ruby
+>> server.stop
+true
+>> server.reimage(:distribution => 'precise', :root_password => 'new_root_password_here')
+true
+```
+
+Once the re-image is complete, it will be left in an on state, so you can use wait_for again:
+
+```ruby
+>> server.wait_for { sshable?(:password => 'new_root_password_here') }
+{:duration=>122.0}
+```
+
+
 ### Discs
 
 You can get the discs on the virtual machine by using:
