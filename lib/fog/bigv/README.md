@@ -134,7 +134,7 @@ To maintain compatibility with other Fog providers, virtual machines in BigV ter
 These are the attributes you can set when creating (or updating) servers:
 
 - **name** (required - must be unique in the account)
-- **password** - root password for the new server (required - only for creation)
+- **root_password** - root password for the new server (required - only for creation)
 - **cores** - number of CPU cores
 - **memory** (in megabytes)
 - **autoreboot_on** - whether the VM should be restarted on power down
@@ -226,7 +226,7 @@ Or you can do the same using the name:
 
 ```ruby
 >>  server = bigv.servers.create(:name => 'myserver-name',
-?>                               :password => 'new_root_password')
+?>                               :root_password => 'new_root_password')
   <Fog::Compute::BigV::Server
     id=12610,
     group_id=1,
@@ -248,7 +248,7 @@ Or you can do the same using the name:
 
 ```ruby
 server = bigv.servers.new(:name => 'myserver_name')
-server.password = 'new_root_password'
+server.root_password = 'new_root_password'
 server.save
 ```
 
@@ -256,7 +256,7 @@ server.save
 
 ```ruby
 server = bigv.servers.create(:name => 'my-bigger-server-name',
-                             :password => 'new_root_password',
+                             :root_password => 'new_root_password',
                              :cores => 2,
                              :memory => 2048,
                              :initial_discs => [ {:label => 'vda', :storage_grade => 'sata', :size => 10240} ])
@@ -316,7 +316,7 @@ wait_for blocks until the condition in the block is complete - great for after s
 
 ```ruby
 >>  server = bigv.servers.create(:name => 'myserver-name',
-?>                               :password => 'new_root_password')
+?>                               :root_password => 'new_root_password')
   <Fog::Compute::BigV::Server
     id=12610,
     group_id=1,

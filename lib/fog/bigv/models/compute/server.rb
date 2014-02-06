@@ -35,7 +35,7 @@ module Fog
 
 
         # Just used for creation:
-        attr_accessor :password
+        attr_accessor :root_password
         attr_accessor :distribution
         attr_accessor :initial_discs
 
@@ -202,13 +202,13 @@ module Fog
               :discs            => _initial_discs,
               :reimage => {
                 :distribution   => distribution || DEFAULT_DISTRIBUTION,
-                :root_password  => password
+                :root_password  => root_password
               }
             }
           end
 
           def _create_server
-            requires :group_id, :name, :password
+            requires :group_id, :name, :root_password
 
             response = service.create_server(group_id, _create_server_params)
             merge_attributes(response.body['virtual_machine'])
