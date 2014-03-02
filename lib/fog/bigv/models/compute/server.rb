@@ -88,6 +88,36 @@ module Fog
           true
         end
 
+        # This will send an ACPI powerdown signal to the machine which should cause
+        # it to initiate a clean shutdown - the equivalent of pressing a soft power
+        # button on a PC. Note that if the autoreboot_on attribute is set to true,
+        # the BigV brain will power the machine on again when it detects it hsa
+        # turned off.
+        def shutdown
+          requires :id, :group_id
+          service.signal_virtual_machine(id, group_id, { :signal => 'powerdown' })
+          true
+        end
+
+        # This will send an ACPI reset signal to the machine which is equivalent to
+        # pressing the reset button. The virtual machine will reset, but will
+        # continue to use the same process on the host, so things like size changes
+        # will not take effect like they will with the above methods.
+        def reset
+          requires :id, :group_id
+          service.signal_virtual_machine(id, group_id, { :signal => 'reset' })
+          true
+        end
+
+        # Send a key press
+        # The data parameter should contain a dash-separated list of keys to press,
+        # eg: ‘ctrl-alt-del’
+        def sendkey(data)
+          requires :id, :group_id
+          service.signal_virtual_machine(id, group_id, { :signal => 'sendkey', :data => data })
+          true
+        end
+
 
         # Status:
         def ready?
