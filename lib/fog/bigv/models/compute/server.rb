@@ -81,8 +81,8 @@ module Fog
           true
         end
 
-        # Hard reset:
-        def reboot  
+        # Restart (this will turn off the VM and let the BigV brain turn it back on again):
+        def restart  
           requires :id, :group_id
           service.update_virtual_machine(id, group_id, { :autoreboot_on => true, :power_on => false })
           true

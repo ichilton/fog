@@ -303,10 +303,10 @@ true
 true
 ```
 
-### Reboot
+### Restart
 
 ```ruby
->> server.reboot
+>> server.restart
 true
 ```
 
@@ -438,7 +438,7 @@ true
 
 ### Re-image
 
-If you wuold like to re-image (re-install) the virtual machine, you can use the reimage method. This takes distribution and a root_password parameters like when creating a VM. This can only be performed on a Virtual Machine in the off state.
+If you wuold like to re-image (re-install) the virtual machine, you can use the reimage method. This takes distribution and a root_password parameters like when creating a VM. This can only be performed on a Virtual Machine in the off state. Once complete, the machine will be in a powered on state, but with it's autoreboot_on attribute set to false.
 
 ```ruby
 >> server.stop
