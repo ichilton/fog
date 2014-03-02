@@ -180,6 +180,9 @@ module Fog
 
 
         # Re-image:
+        # Note that this only works on a stopped machine.
+        # After re-imaging, the machine will be in a powered on state, but
+        # it will have it's autoreboot_on attribute to false
         def reimage(options = {})
           requires :id, :group_id
           service.reimage_virtual_machine(id, group_id, options)
