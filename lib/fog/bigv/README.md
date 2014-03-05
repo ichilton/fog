@@ -266,9 +266,6 @@ server = bigv.servers.create(:name => 'my-bigger-server-name',
 >> server.public_ip_address
 "213.xxx.xxx.xxx"
 
->> server.public_ip_address
-"213.xxx.xxx.xxx"
-
 >> server.ipv4_address
 "213.xxx.xxx.xxx"
 
