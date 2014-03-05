@@ -6,13 +6,10 @@ This is a Fog compute provider for Bytemark BigV service.
 - [http://www.bytemark.co.uk](http://www.bytemark.co.uk)
 
 
-Developed/maintained on behalf of Bytemark by:
+Developed/maintained at Bytemark by:
 
   - Ian Chilton
-  - **Email:**   ian@ichilton.co.uk
-  - **Web:**     [http://www.ichilton.co.uk](http://www.ichilton.co.uk)
-  - **Github:**  [http://github.com/ichilton](http://github.com/ichilton)
-  - **Twitter:** @ichilton
+  - **Email:**   ian.chilton@bytemark.co.uk
 
 API Documentation: [http://bigv-api-docs.ichilton.co.uk](http://bigv-api-docs.ichilton.co.uk)
 
