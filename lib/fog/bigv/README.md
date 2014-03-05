@@ -8,8 +8,7 @@ This is a Fog compute provider for Bytemark BigV service.
 
 Developed/maintained at Bytemark by:
 
-  - Ian Chilton
-  - **Email:**   ian.chilton@bytemark.co.uk
+  - Ian Chilton <ian.chilton [at] bytemark.co.uk>
 
 API Documentation: [http://bigv-api-docs.ichilton.co.uk](http://bigv-api-docs.ichilton.co.uk)
 
@@ -285,12 +284,16 @@ server = bigv.servers.create(:name => 'my-bigger-server-name',
 
 ### Start
 
+This will power on the machine and will set the autoreboot_on flag to true so the VM will automatically be re-started on power off.
+
 ```ruby
 >> server.start
 true
 ```
 
 ### Stop
+
+This will power off the machine and will set the autoreboot_on flag to false so the VM will not be automatically be re-started and will stay in a powered off state.
 
 ```ruby
 >> server.stop
@@ -299,14 +302,43 @@ true
 
 ### Restart
 
+This will power off the machine but will set the autoreboot_on flag to true so the VM will be started back up automatically when BigV detects it has stopped.
+
 ```ruby
 >> server.restart
 true
 ```
 
+### Reboot
+
+This will send the ctrl-alt-delete keys, which will (subject to support from the guest operating system) cause the OS to initiate a shutdown and restart.
+
+```ruby
+>> server.reboot
+true
+```
+
+### Shutdown
+
+This will send an ACPI powerdown signal to the machine which should (subject to support on the guest operating system, cause it to initiate a clean shutdown - the equivalent of pressing a soft power button on a PC. Note that if the autoreboot_on attribute is set to true, BigV will power the machine on again when it detects it has turned off.
+
+```ruby
+>> server.shutdown
+true
+```
+
+### Reset
+
+This will send an ACPI reset signal to the machine which is equivalent to pressing the reset button. The virtual machine will reset, but will continue to use the same process on the host, so things like size changes will not take effect like they will with the above methods.
+
+```ruby
+>> server.reset
+true
+```
+
 ### wait_for
 
-wait_for blocks until the condition in the block is complete - great for after server creation!
+The wait_for method blocks (does not return) until the condition in the supplied block completes execution - great for after server creation!
 
 ```ruby
 >>  server = bigv.servers.create(:name => 'myserver-name',
@@ -376,6 +408,16 @@ Note that this will turn the server back on when you save as the server variable
 If that is not intended, you need to do: server.reload after doing the save action.
 
 
+### Sendkey
+
+This sends a key press (or key presses) to the server.
+
+```ruby
+>> server.sendkey('ctrl-alt-delete')
+true
+```
+
+
 ### Delete
 
 ```ruby
@@ -430,9 +472,10 @@ If you would like to purge all of your deleted servers, you can use:
 true
 ```
 
+
 ### Re-image
 
-If you wuold like to re-image (re-install) the virtual machine, you can use the reimage method. This takes distribution and a root_password parameters like when creating a VM. This can only be performed on a Virtual Machine in the off state. Once complete, the machine will be in a powered on state, but with it's autoreboot_on attribute set to false.
+If you would like to re-image (re-install) a virtual machine, you can use the reimage method. This takes distribution and root_password as parameters, the same as when creating a VM. This can only be performed on a Virtual Machine which is powered off. Once complete, the machine will be left powered on. Note that the autoreboot_on attribute is not changed and therefore will still be set to false. You should update it to true if you would like the 
 
 ```ruby
 >> server.stop
@@ -673,6 +716,7 @@ Waiting for server 4 to be accessible
 Waiting for server 5 to be accessible
 {:duration=>0}
 ```
+
 
 ## Groups
 

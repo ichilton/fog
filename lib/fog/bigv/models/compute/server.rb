@@ -68,6 +68,7 @@ module Fog
 
 
         # Turn on:
+        # leaves autoreboot_on as true so box will be restarted on shutdown.
         def start   
           requires :id, :group_id
           service.update_virtual_machine(id, group_id, { :autoreboot_on => true, :power_on => true })
@@ -75,32 +76,40 @@ module Fog
         end
 
         # Turn off:
+        # leaves autoreboot_on as false so box will not be restarted on shutdown.
         def stop    
           requires :id, :group_id
           service.update_virtual_machine( id, group_id, { :autoreboot_on => false, :power_on => false })
           true
         end
 
-        # Restart (this will turn off the VM and let the BigV brain turn it back on again):
+        # Restart - this will turn off the VM and let the BigV brain turn it back on again:
         def restart  
           requires :id, :group_id
           service.update_virtual_machine(id, group_id, { :autoreboot_on => true, :power_on => false })
           true
         end
 
-        # This will send an ACPI powerdown signal to the machine which should cause
-        # it to initiate a clean shutdown - the equivalent of pressing a soft power
-        # button on a PC. Note that if the autoreboot_on attribute is set to true,
-        # the BigV brain will power the machine on again when it detects it hsa
-        # turned off.
+        # This will send the ctrl-alt-delete keys, which will (subject to support from
+        # the guest operating system) cause the OS to initiate a shutdown and
+        # restart.
+        def reboot
+          sendkey('ctrl-alt-delete')
+        end
+
+        # Shutdown - this will send an ACPI powerdown signal to the machine which should
+        # (subject to support on the guest operating system, cause the OS to initiate a
+        # clean shutdown - the equivalent of pressing a soft power button on a PC.
+        # Note that if the autoreboot_on attribute is set to true, BigV will
+        # power the machine on again when it detects it has turned off.
         def shutdown
           requires :id, :group_id
           service.signal_virtual_machine(id, group_id, { :signal => 'powerdown' })
           true
         end
 
-        # This will send an ACPI reset signal to the machine which is equivalent to
-        # pressing the reset button. The virtual machine will reset, but will
+        # Reset - this will send an ACPI reset signal to the machine which is equivalent
+        # to pressing the reset button. The virtual machine will reset, but will
         # continue to use the same process on the host, so things like size changes
         # will not take effect like they will with the above methods.
         def reset
@@ -111,7 +120,7 @@ module Fog
 
         # Send a key press
         # The data parameter should contain a dash-separated list of keys to press,
-        # eg: ‘ctrl-alt-del’
+        # eg: ‘ctrl-alt-delete’
         def sendkey(data)
           requires :id, :group_id
           service.signal_virtual_machine(id, group_id, { :signal => 'sendkey', :data => data })
