@@ -40,6 +40,10 @@ module Fog
       request      :get_definitions
 
       request      :get_discs
+      request      :get_disc
+      request      :create_disc
+      request      :update_disc
+      request      :delete_disc
 
       request      :get_groups
       request      :get_group
