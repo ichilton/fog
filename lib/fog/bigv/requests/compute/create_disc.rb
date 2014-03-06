@@ -11,7 +11,7 @@ module Fog
       #   group_id (defaults to the 'default' group)
       #
       #   options - a hash containing:
-      #     - label (optional)
+      #     - label
       #     - size (in bytes)
       #     - storage_grade (sata, sas, ssd or archive)
 
