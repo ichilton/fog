@@ -17,8 +17,17 @@ module Fog
         attr_accessor :server
 
         def all()
-          discs = service.get_discs(server.id).body
-          load(discs)
+          discs = service.get_discs(server.id, server.group_id).body
+          #load(discs)
+
+          # Bit of a hack as we want to merge in the group_id, which we need
+          # to know for api calls. Need to refactor this but it works for now.
+          clear
+          for disc in discs
+            disc.merge!({ :group_id => server.group_id })
+            self << new(disc)
+          end
+          self
         end
 
 
