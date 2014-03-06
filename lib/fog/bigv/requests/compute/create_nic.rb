@@ -23,7 +23,7 @@ module Fog
 
         def create_nic(vm_id, group_id='default', options = {})
           bigv_api_request(
-            :expects  => [202],
+            :expects  => [200],
             :method   => 'POST',
             :path     => "accounts/#{@bigv_account}/groups/#{group_id}/virtual_machines/#{vm_id}/nics",
             :body     => Fog::JSON.encode(options)
