@@ -30,12 +30,14 @@ module Fog
           end
 
           merge_attributes(response.body)
+          collection.reload
         end
 
 
         def destroy
           requires :id
           service.delete_disc(id, server_id, group_id)
+          collection.reload
           true
         end
 
