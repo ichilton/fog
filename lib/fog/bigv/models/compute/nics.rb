@@ -17,7 +17,8 @@ module Fog
         attr_accessor :server
 
         def all()
-          nics = service.get_nics(server.id).body
+          nics = service.get_nics(server.id, server.group_id).body
+          nics.each { |nic| nic[:group_id] = server.group_id }
           load(nics)
         end
 

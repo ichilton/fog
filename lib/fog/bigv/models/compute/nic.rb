@@ -14,6 +14,7 @@ module Fog
         identity :id
 
         attribute :server_id, :aliases => 'virtual_machine_id'
+        attribute :group_id
 
         attribute :label
         attribute :ips
