@@ -35,7 +35,7 @@ module Fog
 
 
         def destroy
-          requires :id
+          requires :id, :server_id, :group_id
           service.delete_disc(id, server_id, group_id)
           collection.reload
           true
