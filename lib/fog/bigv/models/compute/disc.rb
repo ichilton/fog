@@ -51,7 +51,7 @@ module Fog
 
         def _update
           requires :id, :server_id, :group_id
-          response = service.update_disc(id, server_id, group_id, attributes)
+          service.update_disc(id, server_id, group_id, attributes)
         end
       end
 
