@@ -555,7 +555,7 @@ Note that this is cached on the first call, but you can force it to re-retrieve 
 
 #### Adding a Disc
 
-```
+```ruby
 >> server.discs
   <Fog::Compute::BigV::Discs
     [
@@ -616,7 +616,7 @@ Note that the VM will not see the disc until after a reboot.
 
 #### View specific disc:
 
-```
+```ruby
 >> disc = server.discs.get('backups')
   <Fog::Compute::BigV::Disc
     id=14195,
@@ -648,7 +648,7 @@ Todo - currently not working.
 
 This can only be performed on a server which is turned off.
 
-```
+```ruby
 >> server.stop
 true
 
