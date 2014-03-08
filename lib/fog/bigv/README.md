@@ -502,7 +502,8 @@ You can get the discs on the virtual machine by using:
     [
       <Fog::Compute::BigV::Disc
         id=13068,
-        server_id=12726,
+        server_id=12610,
+        group_id=1,
         label="vda",
         size=20480,
         storage_pool="tail04-sata2",
@@ -512,7 +513,7 @@ You can get the discs on the virtual machine by using:
   >
 ```
 
-This, like servers acts like an array:
+This (like servers) acts like an array:
 
 ```ruby
 >> server.discs.count
@@ -524,7 +525,8 @@ true
 >> server.discs.first
   <Fog::Compute::BigV::Disc
     id=13068,
-    server_id=12726,
+    server_id=12610,
+    group_id=1,
     label="vda",
     size=20480,
     storage_pool="tail04-sata2",
@@ -540,7 +542,8 @@ Note that this is cached on the first call, but you can force it to re-retrieve 
     [
       <Fog::Compute::BigV::Disc
         id=13068,
-        server_id=12726,
+        server_id=12610,
+        group_id=1,
         label="vda",
         size=20480,
         storage_pool="tail04-sata2",
@@ -549,6 +552,109 @@ Note that this is cached on the first call, but you can force it to re-retrieve 
     ]
   >
 ```
+
+#### Adding a Disc
+
+```
+>> server.discs
+  <Fog::Compute::BigV::Discs
+    [
+      <Fog::Compute::BigV::Disc
+        id=14157,
+        server_id=12610,
+        group_id=1,
+        label="vda",
+        size=20480,
+        storage_pool="tail04-sata2",
+        storage_grade="sata"
+      >
+    ]
+  >
+>> server.discs.count
+1
+
+>> server.discs.create(:label => 'backups', :size => 10240, :storage_grade => 'archive')
+  <Fog::Compute::BigV::Disc
+    id=14195,
+    server_id=12610,
+    group_id=1,
+    label="backups",
+    size=10240,
+    storage_pool="tail08-archive1",
+    storage_grade="archive"
+  >
+
+>> server.discs.count
+2
+
+>> server.discs
+  <Fog::Compute::BigV::Discs
+    [
+      <Fog::Compute::BigV::Disc
+        id=14157,
+        server_id=12610,
+        group_id=1,
+        label="vda",
+        size=20480,
+        storage_pool="tail04-sata2",
+        storage_grade="sata"
+      >,
+      <Fog::Compute::BigV::Disc
+        id=14195,
+        server_id=12610,
+        group_id=1,
+        label="backups",
+        size=10240,
+        storage_pool="tail08-archive1",
+        storage_grade="archive"
+      >
+    ]
+  >
+```
+
+Note that the VM will not see the disc until after a reboot.
+
+#### View specific disc:
+
+```
+>> disc = server.discs.get('backups')
+  <Fog::Compute::BigV::Disc
+    id=14195,
+    server_id=12610,
+    group_id=1,
+    label="backups",
+    size=10240,
+    storage_pool="tail08-archive1",
+    storage_grade="archive"
+  >
+
+>> disc = server.discs.get(14195)
+  <Fog::Compute::BigV::Disc
+    id=14195,
+    server_id=12610,
+    group_id=1,
+    label="backups",
+    size=10240,
+    storage_pool="tail08-archive1",
+    storage_grade="archive"
+  >
+```
+
+#### Update a disc
+
+Todo - currently not working.
+
+#### Delete a disc
+
+This can only be performed on a server which is turned off.
+
+```
+>> server.stop
+true
+
+>> server.discs.get('backups').destroy
+true
+ ```
 
 
 ### Nics (network interfaces)
@@ -561,7 +667,7 @@ You can get the nics on the virtual machine by using:
     [
       <Fog::Compute::BigV::Nic
         id=12728,
-        server_id=12726,
+        server_id=12610,
         label=nil,
         ips=["213.xxx.xxx.xxx", "2001:ffff:ff:fff:ffff:ff:ffff:ffff"],
         vlan_num=750,
@@ -584,7 +690,7 @@ true
 >> server.nics.first
   <Fog::Compute::BigV::Nic
     id=12728,
-    server_id=12726,
+    server_id=12610,
     label=nil,
     ips=["213.xxx.xxx.xxx", "2001:ffff:ff:fff:ffff:ff:ffff:ffff"],
     vlan_num=750,
@@ -614,7 +720,7 @@ Note that nics are cached on the first call, but you can force it to re-retrieve
     [
       <Fog::Compute::BigV::Nic
         id=12728,
-        server_id=12726,
+        server_id=12610,
         label=nil,
         ips=["213.xxx.xxx.xxx", "2001:ffff:ff:fff:ffff:ff:ffff:ffff"],
         vlan_num=750,
@@ -631,7 +737,7 @@ Get the primary interface (again, this is cached on the first call so will need 
 >> server.nics.primary
   <Fog::Compute::BigV::Nic
     id=12728,
-    server_id=12726,
+    server_id=12610,
     label=nil,
     ips=["213.xxx.xxx.xxx", "2001:ffff:ff:fff:ffff:ff:ffff:ffff"],
     vlan_num=750,
