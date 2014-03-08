@@ -56,6 +56,7 @@ module Fog
       request      :create_nic
       request      :update_nic
       request      :delete_nic
+      request      :add_ip_to_nic
 
       request      :get_users
       request      :get_user

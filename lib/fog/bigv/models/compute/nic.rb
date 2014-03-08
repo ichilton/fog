@@ -36,7 +36,44 @@ module Fog
         end
 
 
+        def save
+          if persisted?
+            response = _update
+          else
+            response = _create
+          end
+
+          merge_attributes(response.body)
+          collection.reload
+        end
+
+
+        def destroy
+          requires :id, :server_id, :group_id
+          service.delete_nic(id, server_id, group_id)
+          collection.reload
+          true
+        end
+
+
+        def add_new_ip_address
+          requires :id, :server_id, :group_id
+          service.add_ip_to_nic(id, server_id, group_id)
+          collection.reload
+          true
+        end
+
         private
+
+        def _create
+          requires :server_id, :group_id
+          service.create_nic(server_id, group_id, attributes)
+        end
+
+        def _update
+          requires :id, :server_id, :group_id
+          service.update_nic(id, server_id, group_id, attributes)
+        end
 
         def _match_ips(regex)
           ips.select { |ip| ip =~ regex }

@@ -35,6 +35,17 @@ module Fog
           @primary_nic ||= all.first
         end
 
+
+        def new(attributes={})
+          unless attributes.is_a?(::Hash)
+            raise(ArgumentError.new("Initialization parameters must be an attributes hash, got #{attributes.class} #{attributes.inspect}"))
+          end
+
+          attributes[:server_id] = server.id
+          attributes[:group_id] = server.group_id
+          super(attributes)
+        end
+
       end
 
     end
