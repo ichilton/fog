@@ -41,7 +41,9 @@ module Fog
         end
 
         def _update
-          requires :id, :name
+          # Currently the name can not be updated, but this is here for future
+          # compatibility.
+          requires :id
           response = service.update_account(id, attributes)
         end
 

@@ -1,5 +1,5 @@
 require 'fog/core/collection'
-require 'fog/bigv/models/compute/group'
+require 'fog/bigv/models/compute/account'
 
 module Fog
   module Compute
@@ -12,7 +12,7 @@ module Fog
 
       class Accounts < Fog::Collection
 
-        model Fog::Compute::BigV::Group
+        model Fog::Compute::BigV::Account
 
 
         def all()

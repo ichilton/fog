@@ -11,6 +11,8 @@ module Fog
       #   options - a hash containing the attributes to update:
       #     - name
 
+      # Currently the name can not be updated, but this is here for future compatability.
+
       # Success returns a 200 response
 
       # For more information, see: http://bigv-api-docs.ichilton.co.uk/api/accounts/

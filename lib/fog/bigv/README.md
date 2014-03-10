@@ -1049,3 +1049,68 @@ true
     ]
   >
 ```
+
+
+## Accounts
+
+### Get all accounts
+
+>> bigv.accounts
+  <Fog::Compute::BigV::Accounts
+    [
+      <Fog::Compute::BigV::Account
+        id=1,
+        name="myaccountname"
+      >
+    ]
+  >
+
+### Get single account
+
+>> bigv.accounts.get(1)
+  <Fog::Compute::BigV::Account
+    id=1,
+    name="myaccountname"
+  >
+
+>> bigv.accounts.get('myaccountname')
+  <Fog::Compute::BigV::Account
+    id=1,
+    name="myaccountname"
+  >
+
+### Add account
+
+>> bigv.accounts.count
+1
+
+>> bigv.accounts.create(:name => 'my-test-account')
+  <Fog::Compute::BigV::Account
+    id=2,
+    name="my-test-account"
+  >
+
+>> bigv.accounts.count
+2
+
+>> bigv.accounts
+  <Fog::Compute::BigV::Accounts
+    [
+      <Fog::Compute::BigV::Account
+        id=1,
+        name="myaccountname"
+      >,
+
+      <Fog::Compute::BigV::Account
+        id=2,
+        name="my-test-account"
+      >
+    ]
+  >
+
+>> bigv.accounts.get('my-test-account')
+  <Fog::Compute::BigV::Account
+    id=2,
+    name="my-test-account"
+  >
+
