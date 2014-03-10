@@ -1055,6 +1055,7 @@ true
 
 ### Get all accounts
 
+```ruby
 >> bigv.accounts
   <Fog::Compute::BigV::Accounts
     [
@@ -1064,9 +1065,11 @@ true
       >
     ]
   >
+```
 
 ### Get single account
 
+```ruby
 >> bigv.accounts.get(1)
   <Fog::Compute::BigV::Account
     id=1,
@@ -1078,9 +1081,11 @@ true
     id=1,
     name="myaccountname"
   >
+```
 
 ### Add account
 
+```ruby
 >> bigv.accounts.count
 1
 
@@ -1113,4 +1118,4 @@ true
     id=2,
     name="my-test-account"
   >
-
+```
