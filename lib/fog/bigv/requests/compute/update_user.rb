@@ -6,6 +6,8 @@ module Fog
 
       # Updates an existing user.
 
+      # params:
+      #   user_id
       #   options - a hash containing the attributes to update:
       #     - username
       #     - email

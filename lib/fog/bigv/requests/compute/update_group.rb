@@ -6,6 +6,8 @@ module Fog
 
       # Updates an existing group.
 
+      # params:
+      #   group_id
       #   options - a hash containing the attributes to update:
       #     - name
 
