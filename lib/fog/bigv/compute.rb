@@ -25,6 +25,7 @@ module Fog
       recognizes   :bigv_api_url
 
       model_path   'fog/bigv/models/compute'
+
       model        :account
       collection   :accounts
       model        :disc
@@ -59,6 +60,9 @@ module Fog
       request      :create_group
       request      :update_group
       request      :delete_group
+
+      request      :get_ip
+      request      :update_ip
 
       request      :get_nics
       request      :get_nic
