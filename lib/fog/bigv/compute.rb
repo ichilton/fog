@@ -97,6 +97,8 @@ module Fog
           @bigv_yubikey = options[:bigv_yubikey] if options[:bigv_yubikey]
           @bigv_api_url = options[:bigv_api_url] || 'https://uk0.bigv.io'
 
+          @bigv_debug = false
+
           @connection = Fog::Connection.new( @bigv_api_url, false, {:ssl_verify_peer => false} )
         end
 
@@ -112,15 +114,21 @@ module Fog
           params[:headers].merge!('Authorization' => "Basic #{auth_string}")
           params[:headers].merge!('X-Yubikey-Otp' => @bigv_yubikey) if @bigv_yubikey
 
+          puts params if @bigv_debug
           _parse_response_body @connection.request(params)
         end
 
+        def bigv_debug(state=true)
+          @bigv_debug = state
+        end
 
         private
 
         def _parse_response_body(response)
           return response if response.body.empty?
           response.body = Fog::JSON.decode(response.body)
+
+          puts response.inspect if @bigv_debug
           response
         end
 
