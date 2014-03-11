@@ -44,7 +44,7 @@ module Fog
           # Currently the name can not be updated, but this is here for future
           # compatibility.
           requires :id
-          response = service.update_account(id, attributes)
+          service.update_account(id, attributes)
         end
 
       end
