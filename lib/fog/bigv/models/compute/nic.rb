@@ -56,9 +56,9 @@ module Fog
         end
 
 
-        def add_new_ip_address
+        def add_new_ip_address(options)
           requires :id, :server_id, :group_id
-          service.add_ip_to_nic(id, server_id, group_id)
+          service.add_ip_to_nic(id, server_id, group_id, options)
           collection.reload
           true
         end

@@ -22,7 +22,7 @@ module Fog
 
       class Real
 
-        def add_ip_to_nic(nic_id, vm_id, group_id='default')
+        def add_ip_to_nic(nic_id, vm_id, group_id='default', options)
           bigv_api_request(
             :expects  => [200],
             :method   => 'POST',
@@ -35,7 +35,7 @@ module Fog
 
       class Mock
 
-        def add_ip_to_nic(nic_id, vm_id, group_id='default')
+        def add_ip_to_nic(nic_id, vm_id, group_id='default', options)
           Fog::Mock.not_implemented
         end
 
