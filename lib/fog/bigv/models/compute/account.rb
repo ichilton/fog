@@ -7,7 +7,7 @@ module Fog
       # Account Model
 
       # Models a BigV account
-      # http://bigv-api-docs.ichilton.co.uk/api/account/
+      # http://bigv-api-docs.ichilton.co.uk/api/accounts/
 
       class Account < Fog::Model
 
