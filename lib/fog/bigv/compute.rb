@@ -71,11 +71,18 @@ module Fog
       request      :delete_nic
       request      :add_ip_to_nic
 
+      request      :get_privileges
+      request      :get_privilege
+      request      :update_privilege
+      request      :delete_privilege
+
       request      :get_users
       request      :get_user
       request      :create_user
       request      :update_user
       request      :delete_user
+      request      :get_user_privileges
+      request      :create_user_privilege
 
       request      :get_virtual_machines
       request      :get_virtual_machine
