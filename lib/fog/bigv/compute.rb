@@ -34,6 +34,8 @@ module Fog
       collection   :groups
       model        :nic
       collection   :nics
+      model        :privilege
+      collection   :privileges
       model        :server
       collection   :servers
       model        :user

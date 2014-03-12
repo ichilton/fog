@@ -35,6 +35,13 @@ module Fog
           true
         end
 
+        def privileges
+          @privileges ||= Fog::Compute::BigV::Privileges.new({
+                      :service => service,
+                      :user => self
+                    })
+        end
+
 
         private
 
