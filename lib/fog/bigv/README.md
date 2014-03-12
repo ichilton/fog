@@ -987,7 +987,7 @@ true
 
 >> bigv.groups.first
   <Fog::Compute::BigV::Group
-    id=306,
+    id=123,
     name="default"
   >
 
@@ -1051,7 +1051,128 @@ true
 ```
 
 
+## Users
+
+Users are generally physical people - there can be multiple users (people) accessing a single account. Users have privileges detailing what accounts, groups and/or virtual machines they can access and under what circumstances.
+
+### Get all users
+
+```ruby
+>> bigv.users
+  <Fog::Compute::BigV::Users
+    [
+      <Fog::Compute::BigV::User
+        id=1,
+        username="myusername",
+        email="email@mydomain.com",
+        authorized_keys="ssh-rsa AAAA....... myuser@myhost"
+      >
+    ]
+```
+
+### Get an individual user
+
+```ruby
+>> bigv.users.get(1)
+  <Fog::Compute::BigV::User
+    id=1,
+    username="myusername",
+    email="email@mydomain.com",
+    authorized_keys="ssh-rsa AAAA....... myuser@myhost"
+  >
+
+>> bigv.users.get('myusername')
+  <Fog::Compute::BigV::User
+    id=1,
+    username="myusername",
+    email="email@mydomain.com",
+    authorized_keys="ssh-rsa AAAA....... myuser@myhost"
+  >
+```
+
+### Add a new user
+
+```ruby
+>> bigv.users.count
+1
+
+>> bigv.users.create(:username => 'mynewusername', :email => 'myemail@mydomain.com')
+  <Fog::Compute::BigV::User
+    id=2,
+    username="mynewusername",
+    email="myemail@mydomain.com",
+    authorized_keys=nil
+  >
+
+>> bigv.users.count
+2
+
+>> b.users
+  <Fog::Compute::BigV::Users
+    [
+      <Fog::Compute::BigV::User
+        id=1,
+        username="myusername",
+        email="email@mydomain.com",
+        authorized_keys="ssh-rsa AAAA....... myuser@myhost"
+      >,
+      <Fog::Compute::BigV::User
+        id=2,
+        username="mynewusername",
+        email="myemail@mydomain.com",
+        authorized_keys=nil
+      >
+    ]
+  >
+```
+
+### Updating a user
+
+Once a user has been created, the username and email can not be changed so only authorized_keys and password can be updated.
+
+```ruby
+>> user = b.users.get('mynewusername')
+  <Fog::Compute::BigV::User
+    id=2,
+    username="mynewusername",
+    email="myemail@mydomain.com",
+    authorized_keys=nil
+  >
+
+>> user.authorized_keys = 'ssh-rsa AAAA....... myuser@myhost'
+"ssh-rsa AAAA....... myuser@myhost"
+
+>> user.save
+  <Fog::Compute::BigV::User
+    id=2,
+    username="mynewusername",
+    email="myemail@mydomain.com",
+    authorized_keys="ssh-rsa AAAA....... myuser@myhost"
+  >
+
+>> user.password = 'newpassword'
+"newpassword"
+
+>> user.save
+  <Fog::Compute::BigV::User
+    id=2,
+    username="mynewusername",
+    email="myemail@mydomain.com",
+    authorized_keys="ssh-rsa AAAA....... myuser@myhost"
+  >
+```
+
+### Deleting a user
+
+```ruby
+>> bigv.users.get('mynewusername').destroy
+true
+```
+
+
 ## Accounts
+
+Accounts are a billable entity. Accounts would generally relate to a company, organisation, or maybe a persion. An account can be accessed by multiple users (eg: employees) and a user can access multiple accounts (so the same user could for example, access the accounts of multiple companies and/or have a personal account). Accounts contain groups and virtual machines.
 
 ### Get all accounts
 

@@ -36,6 +36,8 @@ module Fog
       collection   :nics
       model        :server
       collection   :servers
+      model        :user
+      collection   :users
 
       request_path 'fog/bigv/requests/compute'
 
