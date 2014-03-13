@@ -17,7 +17,7 @@ module Fog
 
         def delete_privilege(privilege_id)
           bigv_api_request(
-            :expects  => [204],
+            :expects  => [200],
             :method   => 'DELETE',
             :path     => "privileges/#{privilege_id}",
           )
