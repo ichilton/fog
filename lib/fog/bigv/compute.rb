@@ -133,6 +133,10 @@ module Fog
           _parse_response_body @connection.request(params)
         end
 
+        def set_yubikey(key)
+          @bigv_yubikey = key
+        end
+
         def bigv_debug(state=true)
           @bigv_debug = state
         end
