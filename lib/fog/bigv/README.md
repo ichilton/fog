@@ -87,11 +87,17 @@ bigv = Fog::Compute.new({
 })
 ```
 
-If your account requires a Yubikey, you'll also need to supply the output from the Yubikey in the bigv_yubikey parameter:
+If your account requires a Yubikey - aka [V-Key](http://key.bigv.io), you'll also need to supply the output from that in the bigv_yubikey parameter:
 
     :bigv_yubikey  => 'push_yubikey_button_here'
 
-You can also optionally specify :bigv_api_url, although this defaults to: https://uk0.bigv.io
+You can also do the following to set the yubikey token later:
+
+```ruby
+bigv.set_yubikey('push_yubikey_button_here')
+```
+
+The BigV API URL default to: https://uk0.bigv.io, but you can override this by optionally specifying :bigv_api_url.
 
 
 ### fog binary
@@ -120,6 +126,7 @@ $ bin/fog
 4
 >>
 ```
+
 
 ## Servers
 
@@ -889,7 +896,7 @@ Waiting for server 5 to be accessible
       >
 ```
 
-### Specific group by Name
+### Specific group by name
 
 ```ruby
 >> b.groups.get('default')
