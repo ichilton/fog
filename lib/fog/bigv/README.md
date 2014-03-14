@@ -171,9 +171,11 @@ bigv.servers[0]
 
 ### All servers
 
-    bigv.servers
+```ruby
+bigv.servers
+```
 
-### Single server by ID:
+### Single server by ID
 
 ```ruby
 >> server = bigv.servers.get(12610)
@@ -216,7 +218,7 @@ Or you can do the same using the name:
 ```
 
 
-### Create new virtual machine
+### Create a new server
 
 #### Default Options (1 core, 1GB RAM, 20GB SATA Disc)
 
@@ -374,7 +376,7 @@ The wait_for method blocks (does not return) until the condition in the supplied
 [#<Fog::SSH::Result:0x007f9d4642ae10 @command="uptime", @stderr="", @stdout=" 15:06:09 up 4 min,  1 user,  load average: 0.08, 0.04, 0.03\r\n", @status=0>]
 ```
 
-#### Update Existing Server
+### Update an existing server
 
 Only available on servers which are turned off.
 
@@ -418,7 +420,7 @@ true
 ```
 
 
-### Delete
+### Delete a server
 
 ```ruby
 >> server.destroy
@@ -437,7 +439,7 @@ Deleted servers can be manipulated as a collection with:
 This works in exactly the same, array-like fashion as .servers does.
 
 
-#### Undelete
+### Undelete a server
 
 Servers can be undeleted by setting the deleted flag back to false, or using:
 
@@ -454,7 +456,7 @@ true
 ```
 
 
-### Purge
+### Purge a server
 
 If you would like to purge a deleted server, or even delete an active server but ensure it can't be undeleted, you can use the purge method:
 
@@ -473,7 +475,7 @@ true
 ```
 
 
-### Re-image
+### Re-image a server
 
 If you would like to re-image (re-install) a virtual machine, you can use the reimage method. This takes distribution and root_password as parameters, the same as when creating a VM. This can only be performed on a Virtual Machine which is powered off. Once complete, the machine will be left powered on. Note that the autoreboot_on attribute is not changed and therefore will still be set to false. You should update it to true if you would like the 
 
@@ -492,7 +494,7 @@ Once the re-image is complete, it will be left in an on state, so you can use wa
 ```
 
 
-### Discs
+## Discs
 
 You can get the discs on the virtual machine by using:
 
@@ -553,7 +555,33 @@ Note that this is cached on the first call, but you can force it to re-retrieve 
   >
 ```
 
-#### Adding a Disc
+### View specific disc
+
+```ruby
+>> disc = server.discs.get('backups')
+  <Fog::Compute::BigV::Disc
+    id=14195,
+    server_id=12610,
+    group_id=1,
+    label="backups",
+    size=10240,
+    storage_pool="tail08-archive1",
+    storage_grade="archive"
+  >
+
+>> disc = server.discs.get(14195)
+  <Fog::Compute::BigV::Disc
+    id=14195,
+    server_id=12610,
+    group_id=1,
+    label="backups",
+    size=10240,
+    storage_pool="tail08-archive1",
+    storage_grade="archive"
+  >
+```
+
+### Add a Disc
 
 ```ruby
 >> server.discs
@@ -614,37 +642,11 @@ Note that this is cached on the first call, but you can force it to re-retrieve 
 
 Note that the VM will not see the disc until after a reboot.
 
-#### View specific disc:
-
-```ruby
->> disc = server.discs.get('backups')
-  <Fog::Compute::BigV::Disc
-    id=14195,
-    server_id=12610,
-    group_id=1,
-    label="backups",
-    size=10240,
-    storage_pool="tail08-archive1",
-    storage_grade="archive"
-  >
-
->> disc = server.discs.get(14195)
-  <Fog::Compute::BigV::Disc
-    id=14195,
-    server_id=12610,
-    group_id=1,
-    label="backups",
-    size=10240,
-    storage_pool="tail08-archive1",
-    storage_grade="archive"
-  >
-```
-
-#### Update a disc
+### Update a disc
 
 Todo - currently not working.
 
-#### Delete a disc
+### Delete a disc
 
 This can only be performed on a server which is turned off.
 
@@ -657,9 +659,9 @@ true
  ```
 
 
-### Nics (network interfaces)
+## Nics (network interfaces)
 
-You can get the nics on the virtual machine by using:
+You can get all of the nics on the virtual machine by using:
 
 ```ruby
 >> server.nics
@@ -699,7 +701,7 @@ true
   >
 ```
 
-IP Addresses:
+### IP Addresses
 
 ```ruby
 >> server.nics.first.ip_addresses
@@ -747,7 +749,7 @@ Get the primary interface (again, this is cached on the first call so will need 
 ```
 
 
-### Iteration
+## Iteration
 
 Now we can programatically control servers, we can do things like create and control multiple machines in one go. This could be very useful for bringing up a bunch of new web servers to increase capacity for instance!
 
@@ -847,7 +849,7 @@ Waiting for server 5 to be accessible
 [{1=>"default"}]
 ```
 
-### All
+### All groups
 
 ```ruby
 >> bigv.groups
@@ -877,7 +879,7 @@ Waiting for server 5 to be accessible
 
 ```
 
-### Single by ID:
+### Specific group by ID
 
 ```ruby
   >> b.groups.get(1)
@@ -887,7 +889,7 @@ Waiting for server 5 to be accessible
       >
 ```
 
-### Single by Name:
+### Specific group by Name
 
 ```ruby
 >> b.groups.get('default')
@@ -898,7 +900,7 @@ Waiting for server 5 to be accessible
 ```
 
 
-### Create
+### Add a new group
 
 ```ruby
 >> bigv.groups.map(&:name)
@@ -947,7 +949,7 @@ Waiting for server 5 to be accessible
 ["default", "test1", "test2", "test3"]
 ```
 
-### Update
+### Update a group
 
 ```ruby
 >> group = bigv.groups.get('test3')
@@ -969,7 +971,7 @@ Waiting for server 5 to be accessible
 ["default", "test1", "test2", "test3-changed"]
 ```
 
-### Delete
+### Delete a group
 
 ```ruby
 >> group.destroy
@@ -979,7 +981,7 @@ true
 ["default", "test1", "test2"]
 ```
 
-### Servers in Group
+### Servers in group
 
 ```ruby
 >> bigv.servers.count
@@ -1126,7 +1128,7 @@ Users are generally physical people - there can be multiple users (people) acces
   >
 ```
 
-### Updating a user
+### Update a user
 
 Once a user has been created, the username and email can not be changed so only authorized_keys and password can be updated.
 
@@ -1162,7 +1164,7 @@ Once a user has been created, the username and email can not be changed so only 
   >
 ```
 
-### Deleting a user
+### Delete a user
 
 ```ruby
 >> bigv.users.get('mynewusername').destroy
@@ -1188,7 +1190,7 @@ Accounts are a billable entity. Accounts would generally relate to a company, or
   >
 ```
 
-### Get single account
+### Get specific account
 
 ```ruby
 >> bigv.accounts.get(1)
@@ -1204,7 +1206,7 @@ Accounts are a billable entity. Accounts would generally relate to a company, or
   >
 ```
 
-### Add account
+### Add a new account
 
 ```ruby
 >> bigv.accounts.count
@@ -1294,7 +1296,7 @@ For example, a user can be an 'account admin' for an account, a 'group admin' fo
   >
 ```
 
-### Get a single privilege
+### Get a specific privilege
 
 ```ruby
 >> bigv.privileges.get(1)
