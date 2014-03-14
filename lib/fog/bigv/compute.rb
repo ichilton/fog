@@ -32,6 +32,8 @@ module Fog
       collection   :discs
       model        :group
       collection   :groups
+      model        :ip
+      collection   :ips
       model        :nic
       collection   :nics
       model        :privilege

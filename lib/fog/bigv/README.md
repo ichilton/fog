@@ -1436,3 +1436,41 @@ true
 >> b.privileges.get(4).destroy
 true
 ```
+
+
+## IP Addresses (Reverse DNS)
+
+### Get IP Address
+
+```ruby
+bigv.ips.get('123.123.123.123')
+  <Fog::Compute::BigV::Ip
+    address="123.123.123.123",
+    rdns=nil
+  >
+```
+
+or this could of course come from a server:
+
+```ruby
+bigv.ips.get(bigv.servers.get('server_name_or_id'))
+  <Fog::Compute::BigV::Ip
+    address="123.123.123.123",
+    rdns=nil
+  >
+```
+
+### Update Reverse DNS
+
+```ruby
+>> ip = bigv.ips.get(bigv.servers.get('server_name_or_id'))
+  <Fog::Compute::BigV::Ip
+    address="123.123.123.123",
+    rdns=nil
+  >
+
+>> ip.rdns = 'myserver.mydomain.com'
+"myserver.mydomain.com"
+
+>> ip.save
+true
