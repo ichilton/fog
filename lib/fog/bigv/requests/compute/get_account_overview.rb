@@ -12,7 +12,6 @@ module Fog
     # more information: http://bigv-api-docs.ichilton.co.uk/api/accounts/
 
       class Real
-
         def get_account_overview(include_deleted=false)
           params = { :view => 'overview' }
           params[:include_deleted] = true if include_deleted
@@ -24,15 +23,12 @@ module Fog
             :query    => params
           )
         end
-
       end
 
       class Mock
-
         def get_account_overview
           Fog::Mock.not_implemented
         end
-
       end
     end
   end

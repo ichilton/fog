@@ -24,7 +24,6 @@ module Fog
       # For more information, see: http://bigv-api-docs.ichilton.co.uk/api/privileges/
 
       class Real
-
         def create_user_privilege(user_id, options = {})
           bigv_api_request(
             :expects  => [200],
@@ -33,15 +32,12 @@ module Fog
             :body     => Fog::JSON.encode(options)
           )
         end
-
       end
 
       class Mock
-
         def create_user_privilege(user_id, options = {})
           Fog::Mock.not_implemented
         end
-
       end
     end
   end

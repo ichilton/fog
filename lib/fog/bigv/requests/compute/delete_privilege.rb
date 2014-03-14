@@ -14,7 +14,6 @@ module Fog
       # For more information, see: http://bigv-api-docs.ichilton.co.uk/api/privileges/
 
       class Real
-
         def delete_privilege(privilege_id)
           bigv_api_request(
             :expects  => [200],
@@ -22,15 +21,12 @@ module Fog
             :path     => "privileges/#{privilege_id}",
           )
         end
-
       end
 
       class Mock
-
         def delete_privilege(privilege_id)
           Fog::Mock.not_implemented
         end
-
       end
     end
   end

@@ -9,7 +9,6 @@ module Fog
     # more information, see: http://bigv-api-docs.ichilton.co.uk/api/accounts/
 
       class Real
-
         def get_account(account_id)
           bigv_api_request(
             :expects  => [200],
@@ -17,15 +16,12 @@ module Fog
             :path     => "accounts/#{account_id}"
           )
         end
-
       end
 
       class Mock
-
         def get_account(account_id)
           Fog::Mock.not_implemented
         end
-
       end
     end
   end

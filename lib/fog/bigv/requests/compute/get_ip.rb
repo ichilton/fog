@@ -14,7 +14,6 @@ module Fog
       # For more information, see: http://bigv-api-docs.ichilton.co.uk/api/ips/
 
       class Real
-
         def get_ip(ip_address)
           bigv_api_request(
             :expects  => [200],
@@ -22,15 +21,12 @@ module Fog
             :path     => "ips/#{ip_address}"
           )
         end
-
       end
 
       class Mock
-
         def get_ip(ip_address)
           Fog::Mock.not_implemented
         end
-
       end
     end
   end

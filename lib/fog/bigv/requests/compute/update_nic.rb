@@ -21,7 +21,6 @@ module Fog
       # For more information, see: http://bigv-api-docs.ichilton.co.uk/api/nics/
 
       class Real
-
         def update_nic(nic_id, vm_id, group_id='default', options = {})
           bigv_api_request(
             :expects  => [200],
@@ -30,15 +29,12 @@ module Fog
             :body     => Fog::JSON.encode(options)
           )
         end
-
       end
 
       class Mock
-
         def update_nic(nic_id, vm_id, group_id='default', options = {})
           Fog::Mock.not_implemented
         end
-
       end
     end
   end

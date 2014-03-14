@@ -9,7 +9,6 @@ module Fog
     # more information, see: http://bigv-api-docs.ichilton.co.uk/api/users/
 
       class Real
-
         def get_users
           bigv_api_request(
             :expects  => [200],
@@ -17,15 +16,12 @@ module Fog
             :path     => "users"
           )
         end
-
       end
 
       class Mock
-
         def get_users
           Fog::Mock.not_implemented
         end
-
       end
     end
   end

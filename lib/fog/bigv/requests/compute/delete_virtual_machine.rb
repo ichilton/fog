@@ -17,7 +17,6 @@ module Fog
       # For more information, see: http://bigv-api-docs.ichilton.co.uk/api/virtual_machines/
 
       class Real
-
         def delete_virtual_machine(vm_id, group_id='default', purge=false)
           params = { :purge => true } if purge == 'yes'
 
@@ -28,15 +27,12 @@ module Fog
             :query    => params || nil
           )
         end
-
       end
 
       class Mock
-
         def delete_virtual_machine(vm_id, group_id='default')
           Fog::Mock.not_implemented
         end
-
       end
     end
   end

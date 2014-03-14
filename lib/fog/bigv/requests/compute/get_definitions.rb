@@ -9,7 +9,6 @@ module Fog
     # more information: http://bigv-api-docs.ichilton.co.uk/api/definitions/
 
       class Real
-
         def get_definitions
           bigv_api_request(
             :expects  => [200],
@@ -17,15 +16,12 @@ module Fog
             :path     => "definitions",
           )
         end
-
       end
 
       class Mock
-
         def get_definitions
           Fog::Mock.not_implemented
         end
-
       end
     end
   end

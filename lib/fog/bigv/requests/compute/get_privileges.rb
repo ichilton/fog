@@ -9,7 +9,6 @@ module Fog
     # more information, see: http://bigv-api-docs.ichilton.co.uk/api/privileges/
 
       class Real
-
         def get_privileges
           bigv_api_request(
             :expects  => [200],
@@ -17,15 +16,12 @@ module Fog
             :path     => "privileges"
           )
         end
-
       end
 
       class Mock
-
         def get_privileges
           Fog::Mock.not_implemented
         end
-
       end
     end
   end

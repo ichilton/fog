@@ -16,7 +16,6 @@ module Fog
       # For more information, see: http://bigv-api-docs.ichilton.co.uk/api/discs/
 
       class Real
-
         def delete_disc(disc_id, vm_id, group_id='default')
           bigv_api_request(
             :expects  => [204],
@@ -25,15 +24,12 @@ module Fog
             :query    => { :purge => true }
           )
         end
-
       end
 
       class Mock
-
         def delete_disc(disc_id, vm_id, group_id='default')
           Fog::Mock.not_implemented
         end
-
       end
     end
   end

@@ -18,7 +18,6 @@ module Fog
       # For more information, see: http://bigv-api-docs.ichilton.co.uk/api/nics/
 
       class Real
-
         def delete_nic(nic_id, vm_id, group_id='default')
           bigv_api_request(
             :expects  => [204],
@@ -26,15 +25,12 @@ module Fog
             :path     => "/accounts/#{@bigv_account}/groups/#{group_id}/virtual_machines/#{vm_id}/nics/#{nic_id}",
           )
         end
-
       end
 
       class Mock
-
         def delete_nic(nic_id, vm_id, group_id='default')
           Fog::Mock.not_implemented
         end
-
       end
     end
   end

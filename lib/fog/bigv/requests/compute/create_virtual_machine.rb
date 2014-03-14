@@ -24,7 +24,6 @@ module Fog
       # For more information, see: http://bigv-api-docs.ichilton.co.uk/api/virtual_machines/
 
       class Real
-
         def create_virtual_machine(group_id='default', options = {})
           bigv_api_request(
             :expects  => [202],
@@ -33,15 +32,12 @@ module Fog
             :body     => Fog::JSON.encode(options)
           )
         end
-
       end
 
       class Mock
-
         def create_virtual_machine(options = {})
           Fog::Mock.not_implemented
         end
-
       end
     end
   end

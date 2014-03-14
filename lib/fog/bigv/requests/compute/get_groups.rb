@@ -11,7 +11,6 @@ module Fog
       # For more information, see: http://bigv-api-docs.ichilton.co.uk/api/groups/
 
       class Real
-
         def get_groups
           bigv_api_request(
             :expects  => [200],
@@ -19,15 +18,12 @@ module Fog
             :path     => "accounts/#{@bigv_account}/groups"
           )
         end
-
       end
 
       class Mock
-
         def get_groups
           Fog::Mock.not_implemented
         end
-
       end
     end
   end

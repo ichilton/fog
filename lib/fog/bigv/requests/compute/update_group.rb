@@ -16,7 +16,6 @@ module Fog
       # For more information, see: http://bigv-api-docs.ichilton.co.uk/api/groups/
 
       class Real
-
         def update_group(group_id, options = {})
           bigv_api_request(
             :expects  => [200],
@@ -25,15 +24,12 @@ module Fog
             :body     => Fog::JSON.encode(options)
           )
         end
-
       end
 
       class Mock
-
         def update_group(group_id, options = {})
           Fog::Mock.not_implemented
         end
-
       end
     end
   end

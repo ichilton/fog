@@ -15,7 +15,6 @@ module Fog
       # For more information, see: http://bigv-api-docs.ichilton.co.uk/api/virtual_machines/
 
       class Real
-
         def get_virtual_machine(vm_id, group_id='default')
           bigv_api_request(
             :expects  => [200],
@@ -23,15 +22,12 @@ module Fog
             :path     => "accounts/#{@bigv_account}/groups/#{group_id}/virtual_machines/#{vm_id}"
           )
         end
-
       end
 
       class Mock
-
         def get_virtual_machine(vm_id, group_id='default')
           Fog::Mock.not_implemented
         end
-
       end
     end
   end
