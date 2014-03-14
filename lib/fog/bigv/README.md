@@ -1316,7 +1316,7 @@ For example, a user can be an 'account admin' for an account, a 'group admin' fo
 
 ### Get all privileges for a specific user
 
-``ruby
+```ruby
   >> bigv.users.get('anotherusername').privileges
   <Fog::Compute::BigV::Privileges
     [
