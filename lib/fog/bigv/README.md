@@ -1240,3 +1240,190 @@ Accounts are a billable entity. Accounts would generally relate to a company, or
     name="my-test-account"
   >
 ```
+
+
+## Privileges
+
+Privileges contain what a user can do, and under what circumstances.
+
+For example, a user can be an 'account admin' for an account, a 'group admin' for a group or a 'vm admin' for a virtual machine. They could however only be a group admin over a group if they use their Yubikey and/or are coming from a certain ip address.
+
+### Get all privileges
+
+```ruby
+>> bigv.privileges
+  <Fog::Compute::BigV::Privileges
+    [
+      <Fog::Compute::BigV::Privilege
+        id=1,
+        virtual_machine_id=nil,
+        group_id=nil,
+        account_id=1,
+        username="myusername",
+        level="account_admin",
+        creating_username=nil,
+        yubikey_required=false,
+        yubikey_otp_max_age=nil,
+        ip_restrictions=nil
+      >,
+      <Fog::Compute::BigV::Privilege
+        id=2,
+        virtual_machine_id=nil,
+        group_id=nil,
+        account_id=2,
+        username="myusername",
+        level="account_admin",
+        creating_username=nil,
+        yubikey_required=false,
+        yubikey_otp_max_age=nil,
+        ip_restrictions=nil
+      >,
+      <Fog::Compute::BigV::Privilege
+        id=3,
+        virtual_machine_id=nil,
+        group_id=1,
+        account_id=nil,
+        username="anotherusername",
+        level="group_admin",
+        creating_username=nil,
+        yubikey_required=false,
+        yubikey_otp_max_age=nil,
+        ip_restrictions=nil
+      >
+    ]
+  >
+```
+
+### Get a single privilege
+
+```ruby
+>> bigv.privileges.get(1)
+  <Fog::Compute::BigV::Privilege
+    id=1,
+    virtual_machine_id=nil,
+    group_id=nil,
+    account_id=1,
+    username="myusername",
+    level="account_admin",
+    creating_username=nil,
+    yubikey_required=false,
+    yubikey_otp_max_age=nil,
+    ip_restrictions=nil
+  >
+```
+
+### Get all privileges for a specific user
+
+``ruby
+  >> bigv.users.get('anotherusername').privileges
+  <Fog::Compute::BigV::Privileges
+    [
+      <Fog::Compute::BigV::Privilege
+        id=3,
+        virtual_machine_id=nil,
+        group_id=1,
+        account_id=nil,
+        username="anotherusername",
+        level="group_admin",
+        creating_username=nil,
+        yubikey_required=false,
+        yubikey_otp_max_age=nil,
+        ip_restrictions=nil
+      >
+    ]
+  >
+```
+
+### Create a new privilege
+
+You can only create privileges at levels beneath you. As an account admin (default), you can create privileges for group_admin or vm_admin, but not account_admin - you'll need to contact support for that.
+
+This will let user 'someuser' be a 'group admin' for group_id 2 (without the need for a yubikey):
+
+```ruby
+>> bigv.users.get('someuser').privileges.create(:level => 'group_admin', :group_id => 2, :yubikey_required => false)
+  <Fog::Compute::BigV::Privilege
+    id=4,
+    virtual_machine_id=nil,
+    group_id=2,
+    account_id=nil,
+    username="someuser",
+    level="group_admin",
+    creating_username="myusername",
+    yubikey_required=false,
+    yubikey_otp_max_age=nil,
+    ip_restrictions=nil
+  >
+```
+
+You could refer to the group by name:
+
+```ruby
+bigv.users.get('someuser').privileges.create(:level => 'group_admin', :group_id => bigv.groups.get('mygroup').id, :yubikey_required => false)
+```
+
+Or you could actually provide the user_id as a parameter:
+
+```ruby
+>> bigv.privileges.create(:user_id => 3, :level => 'group_admin', :group_id => 2, :yubikey_required => false)
+  <Fog::Compute::BigV::Privilege
+    id=4,
+    virtual_machine_id=nil,
+    group_id=2,
+    account_id=nil,
+    username="someuser",
+    level="group_admin",
+    creating_username="myusername",
+    yubikey_required=false,
+    yubikey_otp_max_age=nil,
+    ip_restrictions=nil
+  >
+```
+
+
+### Update a privilege
+
+You can update the yubikey_required, yubikey_otp_max_age and ip_restrictions (again, only on privileges on lower levels than your own though).
+
+```ruby
+>> priv = bigv.privileges.get(4)
+  <Fog::Compute::BigV::Privilege
+    id=4,
+    virtual_machine_id=nil,
+    group_id=2,
+    account_id=nil,
+    username="someuser",
+    level="group_admin",
+    creating_username="myusername",
+    yubikey_required=false,
+    yubikey_otp_max_age=nil,
+    ip_restrictions=nil
+  >
+
+>> priv.yubikey_required = true
+true
+
+>> priv.yubikey_otp_max_age = 900
+900
+
+>> priv.save
+  <Fog::Compute::BigV::Privilege
+    id=4,
+    virtual_machine_id=nil,
+    group_id=2,
+    account_id=nil,
+    username="someuser",
+    level="group_admin",
+    creating_username="myusername",
+    yubikey_required=true,
+    yubikey_otp_max_age=900,
+    ip_restrictions=nil
+  >
+```
+
+### Delete a privilege
+
+```ruby
+>> b.privileges.get(4).destroy
+true
+```
