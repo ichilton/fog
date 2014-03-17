@@ -144,7 +144,7 @@ These are the attributes you can set when creating (or updating) servers:
 - **power_on** - whether the VM should be powered on
 - **cdrom_url** - URL of a .iso file to use as a CDROM drive for custom installs
 - **hardware_profile**
-- **initial_discs** (optional array, only for creation - see example below)
+- **discs** (optional array, only for creation - see example below)
 
 
 ### How many?
@@ -264,7 +264,7 @@ server = bigv.servers.create(:name => 'my-bigger-server-name',
                              :root_password => 'new_root_password',
                              :cores => 2,
                              :memory => 2048,
-                             :initial_discs => [ {:label => 'vda', :storage_grade => 'sata', :size => 10240} ])
+                             :discs => [ {:label => 'vda', :storage_grade => 'sata', :size => 10240} ])
 ```
 
 

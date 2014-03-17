@@ -37,7 +37,7 @@ module Fog
         # Just used for creation:
         attr_accessor :root_password
         attr_accessor :distribution
-        attr_accessor :initial_discs
+        attr_accessor :discs
 
         VALID_ATTRIBUTES = [
                               :name,
@@ -211,6 +211,9 @@ module Fog
           not discs.empty?
         end
 
+        def discs=(discs)
+          attributes[:discs] = discs
+        end
 
         def nics
           @nics ||= Fog::Compute::BigV::Nics.new({
@@ -235,7 +238,7 @@ module Fog
           end
 
           def _initial_discs
-            initial_discs.kind_of?(Array) ? initial_discs : [ DEFAULT_DISC ]
+            discs.kind_of?(Array) ? attributes[:discs] : [ DEFAULT_DISC ]
           end
 
           def _create_server_params
