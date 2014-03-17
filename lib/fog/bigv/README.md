@@ -756,6 +756,36 @@ Get the primary interface (again, this is cached on the first call so will need 
 ```
 
 
+### Add Additional IP's
+
+```ruby
+>> nic = server.nics.primary
+  <Fog::Compute::BigV::Nic
+    id=12728,
+    server_id=12610,
+    label=nil,
+    ips=["213.xxx.xxx.xxx", "2001:ffff:ff:fff:ffff:ff:ffff:ffff"],
+    vlan_num=750,
+    mac="fe:ff:00:00:ff:ff",
+    extra_ips={}
+  >
+
+>> nic.add_new_ip_address({ :family => 'ipv4', :addresses => 1, :reason => 'reason here' })
+true
+
+>> nic
+  <Fog::Compute::BigV::Nic
+    id=12728,
+    server_id=12610,
+    label=nil,
+    ips=["213.xxx.xxx.1", "2001:ffff:ff:fff:ffff:ff:ffff:ffff"],
+    vlan_num=750,
+    mac="fe:ff:00:00:ff:ff",
+    extra_ips={}
+    extra_ips={"213.xxx.xxx.123"=>"213.xxx.xxx.1"}
+  >
+
+
 ## Iteration
 
 Now we can programatically control servers, we can do things like create and control multiple machines in one go. This could be very useful for bringing up a bunch of new web servers to increase capacity for instance!
