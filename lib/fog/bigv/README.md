@@ -17,10 +17,6 @@ API Documentation: [http://bigv-api-docs.ichilton.co.uk](http://bigv-api-docs.ic
 
 This provider is currently under development and is work in progress.
 
-The servers functionality is working and functional.
-
-Control of discs & nics (embedded under servers) is in progress.
-
 There are currently no mocks or tests for this provider - those are coming soon.
 
 Use at your own risk - remember that usage of this provider could incur charges on your BigV account and could make modifications to any virtual machines etc you have in your BigV account.
@@ -87,7 +83,7 @@ bigv = Fog::Compute.new({
 })
 ```
 
-If your account requires a Yubikey - aka [V-Key](http://key.bigv.io), you'll also need to supply the output from that in the bigv_yubikey parameter:
+If your account requires a Yubikey, aka [V-Key](http://key.bigv.io), you'll also need to supply the output from that in the bigv_yubikey parameter:
 
     :bigv_yubikey  => 'push_yubikey_button_here'
 
@@ -293,7 +289,7 @@ server = bigv.servers.create(:name => 'my-bigger-server-name',
 
 ### Start
 
-This will power on the machine and will set the autoreboot_on flag to true so the VM will automatically be re-started on power off.
+This will power on the machine and will set the autoreboot_on flag to true so the VM will automatically be restarted on power off.
 
 ```ruby
 >> server.start
@@ -302,7 +298,7 @@ true
 
 ### Stop
 
-This will power off the machine and will set the autoreboot_on flag to false so the VM will not be automatically be re-started and will stay in a powered off state.
+This will power off the machine and will set the autoreboot_on flag to false so the VM will not be automatically be restarted and will stay in a powered off state.
 
 ```ruby
 >> server.stop
@@ -329,7 +325,7 @@ true
 
 ### Shutdown
 
-This will send an ACPI powerdown signal to the machine which should (subject to support on the guest operating system, cause it to initiate a clean shutdown - the equivalent of pressing a soft power button on a PC. Note that if the autoreboot_on attribute is set to true, BigV will power the machine on again when it detects it has turned off.
+This will send an ACPI powerdown signal to the machine which should (subject to support on the guest operating system) cause it to initiate a clean shutdown - the equivalent of pressing a soft power button on a PC. Note that if the autoreboot_on attribute is set to true, BigV will power the machine on again when it detects it has turned off.
 
 ```ruby
 >> server.shutdown
@@ -338,7 +334,7 @@ true
 
 ### Reset
 
-This will send an ACPI reset signal to the machine which is equivalent to pressing the reset button. The virtual machine will reset, but will continue to use the same process on the host, so things like size changes will not take effect like they will with the above methods.
+This will send an ACPI reset signal to the machine which is equivalent to pressing the reset button. The virtual machine will reset, but will continue to use the same process on the host, so size changes will not take effect like they will with the above methods.
 
 ```ruby
 >> server.reset
@@ -455,7 +451,7 @@ Servers can be undeleted by setting the deleted flag back to false, or using:
 true
 ```
 
-..assuming you still have the server variable around! - if not:
+...assuming you still have the server variable around - if not:
 
 ```ruby
 >> bigv.servers.get(12345).undelete
@@ -482,9 +478,9 @@ true
 ```
 
 
-### Re-image a server
+### Reimage a server
 
-If you would like to re-image (re-install) a virtual machine, you can use the reimage method. This takes distribution and root_password as parameters, the same as when creating a VM. This can only be performed on a Virtual Machine which is powered off. Once complete, the machine will be left powered on. Note that the autoreboot_on attribute is not changed and therefore will still be set to false. You should update it to true if you would like the 
+If you would like to reimage (reinstall) a virtual machine, you can use the reimage method. This takes distribution and root_password as parameters, the same as when creating a VM. This can only be performed on a Virtual Machine which is powered off. Once complete, the machine will be left powered on. Note that the autoreboot_on attribute is not changed and therefore will still be set to false. You should update it to true if you would like the machine to power back on if it is turned off at any point.
 
 ```ruby
 >> server.stop
@@ -493,7 +489,7 @@ true
 true
 ```
 
-Once the re-image is complete, it will be left in an on state, so you can use wait_for again:
+Once the reimage is complete, it will be left in an on state, so you can use wait_for again:
 
 ```ruby
 >> server.wait_for { sshable?(:password => 'new_root_password_here') }
@@ -790,7 +786,7 @@ true
 
 Now we can programatically control servers, we can do things like create and control multiple machines in one go. This could be very useful for bringing up a bunch of new web servers to increase capacity for instance!
 
-Below is a little script I whipped up to test out creating five servers at once. It first loops round and sets them all off creating. It then waits for each one to become available and prints it's details. It then waits for each to be sucessfullly ssh'd in to and purges them (so the resources are freed back up).
+Below is a little script I whipped up to test out creating five servers at once. It first loops round and sets them all off creating. It then waits for each one to become available and prints its details. It then waits for each to be sucessfullly ssh'd in to and purges them (so the resources are freed back up).
 
 Obviously use this with caution if you don't want to get landed with a big bill!
 
@@ -1092,7 +1088,7 @@ true
 
 ## Users
 
-Users are generally physical people - there can be multiple users (people) accessing a single account. Users have privileges detailing what accounts, groups and/or virtual machines they can access and under what circumstances.
+Users relate to physical people - there can be multiple users (people) accessing a single account. Users have privileges detailing what accounts, groups and/or virtual machines they can access and under what circumstances.
 
 ### Get all users
 
@@ -1211,7 +1207,7 @@ true
 
 ## Accounts
 
-Accounts are a billable entity. Accounts would generally relate to a company, organisation, or maybe a persion. An account can be accessed by multiple users (eg: employees) and a user can access multiple accounts (so the same user could for example, access the accounts of multiple companies and/or have a personal account). Accounts contain groups and virtual machines.
+Accounts are a billable entity. Accounts relate to a company, organisation, or maybe a person. An account can be accessed by multiple users (eg: employees) and a user can access multiple accounts (so the same user could for example, access the accounts of multiple companies and/or have a personal account). Accounts contain groups and virtual machines.
 
 ### Get all accounts
 
