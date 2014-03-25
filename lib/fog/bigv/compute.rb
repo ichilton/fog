@@ -106,6 +106,12 @@ module Fog
 
       class Real
 
+        attr_accessor :bigv_account
+        attr_accessor :bigv_username
+        attr_accessor :bigv_password
+        attr_accessor :bigv_yubikey
+        attr_accessor :bigv_api_url
+
         def initialize(options={})
           @bigv_account  = options[:bigv_account]
           @bigv_username = options[:bigv_username]
@@ -133,10 +139,6 @@ module Fog
 
           puts "REQUEST: #{params}\n\n" if @bigv_debug
           _parse_response_body @connection.request(params)
-        end
-
-        def set_yubikey(key)
-          @bigv_yubikey = key
         end
 
         def bigv_debug(state=true)

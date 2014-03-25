@@ -90,7 +90,7 @@ If your account requires a Yubikey, aka [V-Key](http://key.bigv.io), you'll also
 You can also do the following to set the yubikey token later:
 
 ```ruby
-bigv.set_yubikey('push_yubikey_button_here')
+bigv.bigv_yubikey('push_yubikey_button_here')
 ```
 
 The BigV API URL default to: https://uk0.bigv.io, but you can override this by optionally specifying :bigv_api_url.
