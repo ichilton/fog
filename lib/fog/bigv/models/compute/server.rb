@@ -238,7 +238,7 @@ module Fog
           end
 
           def _initial_discs
-            discs.kind_of?(Array) ? attributes[:discs] : [ DEFAULT_DISC ]
+            attributes[:discs].kind_of?(Array) ? attributes[:discs] : [ DEFAULT_DISC ]
           end
 
           def _create_server_params
