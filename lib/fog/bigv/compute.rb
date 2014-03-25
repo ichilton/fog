@@ -124,7 +124,7 @@ module Fog
         end
 
         def bigv_api_request(params)
-          auth_string = Base64.encode64("#{@bigv_username}:#{@bigv_password}").strip
+          auth_string = Base64.urlsafe_encode64("#{@bigv_username}:#{@bigv_password}").strip
 
           params[:headers] ||= {}
           params[:headers].merge!('Content-Type' => 'application/json')
