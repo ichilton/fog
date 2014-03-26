@@ -49,7 +49,7 @@ module Fog
                               :hardware_profile
                             ]
 
-        DEFAULT_DISC = { :label => 'vda', :storage_grade => 'sata', :size => 20480 }
+        DEFAULT_DISC = { :label => 'vda', :storage_grade => 'sata', :size => 25600 }
 
         DEFAULT_DISTRIBUTION = 'precise'
 
