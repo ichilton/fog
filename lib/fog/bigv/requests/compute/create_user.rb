@@ -17,7 +17,7 @@ module Fog
       # For more information, see: http://bigv-api-docs.ichilton.co.uk/api/users/
 
       class Real
-        def create_user(options = {})
+        def create_user(options)
           bigv_api_request(
             :expects  => [200],
             :method   => 'POST',
@@ -28,7 +28,7 @@ module Fog
       end
 
       class Mock
-        def create_user(options = {})
+        def create_user(options)
           Fog::Mock.not_implemented
         end
       end
