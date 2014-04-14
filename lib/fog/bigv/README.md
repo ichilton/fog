@@ -263,6 +263,21 @@ server = bigv.servers.create(:name => 'my-bigger-server-name',
                              :discs => [ {:label => 'vda', :storage_grade => 'sata', :size => 10240} ])
 ```
 
+#### Specific IP Addresses
+
+If the server is being created in a group assigned to a private vlan, the server can be provisioned using a specified ipv4 address, a specified ipv6 address or both.
+
+This can be used on any of the above creation methods by setting the ipv4_address and/or ipv6_address attributes.
+
+For example:
+
+```ruby
+>>  server = bigv.servers.create(:name => 'myserver-name',
+?>                               :root_password => 'new_root_password',
+                                 :ipv4_address => '123.123.123.123',
+                                 :ipv6_address => 'aaaa::aaa:ffff:feff:ffff:ffff')
+```
+
 
 ### IP Addresses
 

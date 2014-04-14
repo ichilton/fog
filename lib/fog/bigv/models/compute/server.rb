@@ -38,6 +38,9 @@ module Fog
         attr_accessor :root_password
         attr_accessor :distribution
         attr_accessor :discs
+        attr_accessor :ipv4_address
+        attr_accessor :ipv6_address
+
 
         VALID_ATTRIBUTES = [
                               :name,
@@ -241,8 +244,15 @@ module Fog
             attributes[:discs].kind_of?(Array) ? attributes[:discs] : [ DEFAULT_DISC ]
           end
 
-          def _create_server_params
-            {
+          def ip_address_params
+            ips = Hash.new
+            ips[:ipv4] = attributes[:ipv4_address] if attributes[:ipv4_address]
+            ips[:ipv6] = attributes[:ipv6_address] if attributes[:ipv6_address]
+            ips
+          end
+
+          def _new_server_params
+            params = {
               :virtual_machine  => _virtual_machine_params,
               :discs            => _initial_discs,
               :reimage => {
@@ -250,12 +260,15 @@ module Fog
                 :root_password  => root_password
               }
             }
+
+            params[:ips] = ip_address_params unless ip_address_params.empty?
+            params
           end
 
           def _create_server
             requires :group_id, :name, :root_password
 
-            response = service.create_server(group_id, _create_server_params)
+            response = service.create_server(group_id, _new_server_params)
             merge_attributes(response.body['virtual_machine'])
           end
 

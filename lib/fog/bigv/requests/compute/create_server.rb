@@ -26,12 +26,16 @@ module Fog
       #     - discs - an array containing hashes with the following:
       #       - label - defaults to sequential label of: vda, vdb, vdc etc...
       #       - storage-grade - sata/sas/ssd/archive - defaults to: sata
-      #       - size - in megabytes - defualts to 20GB
+      #       - size - in megabytes - defualts to 25GB
       #       (see: http://bigv-api-docs.ichilton.co.uk/api/discs/)
       #
       #     - reimage - a hash continaing:
       #       - distribution - see: http://bigv-api-docs.ichilton.co.uk/api/definitions/
       #       - root_password - the root password to use for the new machine
+      #
+      #     - ips (only valid for private vlans) - a hash containing:
+      #       - ipv4 - force a specified ipv4 address to be used instead of auto allocating
+      #       - ipv6 - force a specified ipv6 address to be used instead of auto allocating
 
       # Success returns a 202 response, but the machine is created in the background.
 
