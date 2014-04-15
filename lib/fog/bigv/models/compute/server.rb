@@ -139,11 +139,19 @@ module Fog
 
         # IP's:
         def ipv4_address
-          nics.primary.ipv4_addresses.first
+          persisted? ? nics.primary.ipv4_addresses.first : attributes[:ipv4_address]
+        end
+
+        def ipv4_address=(ip_address)
+          attributes[:ipv4_address] = ip_address
         end
 
         def ipv6_address
-          nics.primary.ipv6_addresses.first
+          persisted? ? nics.primary.ipv6_addresses.first : attributes[:ipv6_address]
+        end
+
+        def ipv6_address=(ip_address)
+          attributes[:ipv6_address] = ip_address
         end
 
         def public_ip_address
@@ -244,10 +252,10 @@ module Fog
             attributes[:discs].kind_of?(Array) ? attributes[:discs] : [ DEFAULT_DISC ]
           end
 
-          def ip_address_params
+          def _ip_address_params
             ips = Hash.new
-            ips[:ipv4] = attributes[:ipv4_address] if attributes[:ipv4_address]
-            ips[:ipv6] = attributes[:ipv6_address] if attributes[:ipv6_address]
+            ips[:ipv4] = ipv4_address if ipv4_address
+            ips[:ipv6] = ipv6_address if ipv6_address
             ips
           end
 
@@ -261,7 +269,7 @@ module Fog
               }
             }
 
-            params[:ips] = ip_address_params unless ip_address_params.empty?
+            params[:ips] = _ip_address_params unless _ip_address_params.empty?
             params
           end
 
