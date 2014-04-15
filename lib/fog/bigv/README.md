@@ -1063,7 +1063,7 @@ true
     memory=1024,
     autoreboot_on=true,
     power_on=false,
-    management_address="213.138.104.213",
+    management_address="213.xxx.xxx.xxx",
     cdrom_url=nil,
     head=nil,
     hardware_profile="virtio2013",
